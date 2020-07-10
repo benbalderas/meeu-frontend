@@ -1,3 +1,5 @@
+// config absolute imports
+
 {
     "compilerOptions": {
         "baseUrl": "src"
