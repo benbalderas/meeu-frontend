@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useLocation } from 'react-router-dom';
 import './App.css';
+import theme from 'theme';
+
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
+
+import getScreenTitle from 'helpers/router';
+import MainNav from 'components/navigation/MainNav';
+import Routes from 'Routes';
 
 function App() {
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App">
+        <MainNav screenTitle={getScreenTitle(location.pathname)}>
+          <Routes />
+        </MainNav>
+      </div>
+    </ThemeProvider>
   );
 }
 
