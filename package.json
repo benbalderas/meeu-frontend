@@ -26,6 +26,10 @@
       "airbnb"
     ],
     "settings": {
+      "jsx-quotes": [
+        "error",
+        "prefer-single"
+      ],
       "import/resolver": {
         "node": {
           "paths": [
