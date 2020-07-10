@@ -4,14 +4,16 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-// TODO: import { Provider } from "react-redux";
+import { Provider } from "react-redux";
+import store from "redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* TODO: WRAP ALL IN <Provider></Provider> */}
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
