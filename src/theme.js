@@ -1,12 +1,20 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const black = '#121212';
+const COLOR_BLACK = '#121212';
+const COLOR_PRIMARY = '#FF5761';
+const COLOR_SECONDARY = '#FFFFFF';
 
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: COLOR_PRIMARY,
+    },
+    secondary: {
+      main: COLOR_SECONDARY,
+    },
     background: {
-      default: black,
+      default: COLOR_BLACK,
     },
   },
   typography: {

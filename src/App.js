@@ -22,8 +22,10 @@ function App() {
             The Monet Family in Their Garden at Argenteuil
           </Typography>
           <Typography variant="h6">Exhibits</Typography>
-          <Typography variant="subtitle1">Edouard Manet</Typography>
-          <Typography variant="body2">
+          <Typography color="primary" variant="subtitle1">
+            Edouard Manet
+          </Typography>
+          <Typography color="textSecondary" variant="body2">
             The Louvre, or the Louvre Museum, is the world's largest art museum
             and a historic monument in Paris, France. A central landmark of the
             city, it is located on the Right Bank of the Seine in the city's 1st
