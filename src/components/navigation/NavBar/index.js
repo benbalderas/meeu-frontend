@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar({ handleIconClick, screenTitle, children, isMain, onLogout }) {
+function NavBar({ onClick, screenTitle, children, isMain, onLogout }) {
   const classes = useStyles();
 
   const handleSearchClick = () => {};
@@ -31,7 +31,6 @@ function NavBar({ handleIconClick, screenTitle, children, isMain, onLogout }) {
   return (
     <AppBar
       position="fixed"
-      color="transparent"
       elevation={0}
       className={classes.appBar}
     >
@@ -39,7 +38,7 @@ function NavBar({ handleIconClick, screenTitle, children, isMain, onLogout }) {
         <IconButton
           aria-label="open drawer"
           edge="start"
-          onClick={handleIconClick}
+          onClick={onClick}
           className={isMain ? classes.menuButton : ''}
         >
           {children}
