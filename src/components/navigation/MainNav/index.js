@@ -32,7 +32,7 @@ function MainNav({ children, screenTitle }) {
       </NavBar>
 
       <NavDrawer
-        userAvatar="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+        userAvatar="https://images.unsplash.com/photo-1554384645-13eab165c24b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
         userName="Yuna Oluna"
         userType="Visitor"
         handleDrawer={handleDrawerToggle}

@@ -55,6 +55,12 @@ const theme = createMuiTheme({
       textTransform: 'uppercase',
     },
     subtitle1: {
+      fontFamily: 'obviously, sans-serif',
+      fontWeight: 500,
+      fontStyle: 'normal',
+      lineHeight: 1.25,
+    },
+    subtitle2: {
       fontFamily: 'Vulf Mono',
       fontWeight: 300,
       fontStyle: 'normal',
@@ -67,6 +73,10 @@ const theme = createMuiTheme({
       letterSpacing: 0.5,
     },
   },
+  shape: {
+    borderRadius: 8,
+  },
+
   overrides: {
     // Surfaces
     MuiAppBar: {
@@ -83,6 +93,13 @@ const theme = createMuiTheme({
         borderBottomRightRadius: 12,
       },
     },
+    MuiPaper: {
+      root: {
+        '&.MuiCard-root': {
+          background: 'transparent',
+        },
+      },
+    },
 
     // Lists
     MuiList: {
@@ -94,6 +111,19 @@ const theme = createMuiTheme({
       button: {
         borderRadius: 8,
         marginTop: 8,
+      },
+    },
+
+    // Card
+    MuiCardMedia: {
+      root: {
+        height: 210,
+        borderRadius: 8,
+      },
+    },
+    MuiCardContent: {
+      root: {
+        padding: 8,
       },
     },
   },
