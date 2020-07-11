@@ -8,14 +8,14 @@ export const DRAWER_WIDTH = 280;
 export const SECTIONS = [
   {
     name: 'Museums',
-    icon: <MuseumIcon />,
+    icon: <MuseumIcon color="disabled" />,
   },
   {
     name: 'Exhibits',
-    icon: <CollectionsIcon />,
+    icon: <CollectionsIcon color="disabled" />,
   },
   {
     name: 'Artworks',
-    icon: <ArtworkIcon />,
+    icon: <ArtworkIcon color="disabled" />,
   },
 ];

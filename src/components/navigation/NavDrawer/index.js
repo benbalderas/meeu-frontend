@@ -61,7 +61,7 @@ export default function NavDrawer({
           </IconButton>
         }
         classes={{
-          title: 'MuiTypography-subtitle2',
+          title: 'MuiTypography-subtitle1',
         }}
       />
 
@@ -82,8 +82,8 @@ export default function NavDrawer({
               <ListItemText
                 primary={section.name}
                 primaryTypographyProps={{
-                  variant: 'button',
-                  color: 'textSecondary',
+                  variant: 'body2',
+                  color: 'textPrimary',
                 }}
               />
             </ListItem>

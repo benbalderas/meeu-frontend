@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import MuseumGrid from 'components/grids/MuseumGrid';
 
 const Routes = () => (
 <Switch>
-    <Route exact path="/museums" component={() => <Typography variant="h2">Test</Typography>} />
+    <Route exact path="/museums" component={() => <MuseumGrid />} />
 </Switch>
 );
 

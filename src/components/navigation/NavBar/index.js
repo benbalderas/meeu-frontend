@@ -50,6 +50,7 @@ function NavBar({ handleIconClick, screenTitle, children, isMain, onLogout }) {
         </Typography>
 
         {isMain && (
+          // TODO: Add searchbox https://material-ui.com/components/app-bar/#app-bar-with-search-field
           <IconButton edge="end" color="inherit" onClick={handleSearchClick}>
             <SearchIcon />
           </IconButton>
