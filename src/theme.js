@@ -125,6 +125,14 @@ const theme = createMuiTheme({
     },
 
     // Card
+    MuiCardActionArea: {
+      root: {
+        '& > a': {
+          textDecoration: 'none',
+          color: 'inherit',
+        },
+      },
+    },
     MuiCardMedia: {
       root: {
         height: 210,
