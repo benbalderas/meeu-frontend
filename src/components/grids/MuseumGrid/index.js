@@ -20,6 +20,7 @@ export default function MuseumGrid() {
             image="https://source.unsplash.com/WR5_Ev_bh-I/456x600"
             city="Paris"
             countryCode="FR"
+            onClick={handleCardClick}
           />
           <MuseumCard
             name="Metropolitan Museum of Art"

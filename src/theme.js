@@ -64,6 +64,7 @@ const theme = createMuiTheme({
       fontFamily: 'Vulf Mono',
       fontWeight: 300,
       fontStyle: 'normal',
+      fontSize: '1.125rem',
     },
     body2: {
       lineHeight: 2,
@@ -83,6 +84,9 @@ const theme = createMuiTheme({
       root: {
         backgroundColor: COLOR_BLACK,
       },
+      colorPrimary: {
+        backgroundColor: COLOR_BLACK,
+      },
     },
     MuiDrawer: {
       paperAnchorDockedLeft: {
@@ -98,6 +102,12 @@ const theme = createMuiTheme({
         '&.MuiCard-root': {
           background: 'transparent',
         },
+      },
+    },
+    MuiContainer: {
+      root: {
+        marginTop: 24,
+        marginBottom: 56,
       },
     },
 
@@ -124,6 +134,15 @@ const theme = createMuiTheme({
     MuiCardContent: {
       root: {
         padding: 8,
+      },
+    },
+
+    // Button
+    MuiButton: {
+      root: {
+        paddingTop: 16,
+        paddingBottom: 16,
+        marginTop: 40,
       },
     },
   },

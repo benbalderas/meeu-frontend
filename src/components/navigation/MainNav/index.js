@@ -25,7 +25,7 @@ function MainNav({ children, screenTitle }) {
     <Box display="flex">
       <NavBar
         screenTitle={screenTitle}
-        handleIconClick={handleDrawerToggle}
+        onClick={handleDrawerToggle}
         isMain
       >
         <MenuIcon />
