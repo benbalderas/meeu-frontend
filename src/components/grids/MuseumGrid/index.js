@@ -1,9 +1,16 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Container, Grid, Box } from '@material-ui/core';
 import MuseumCard from 'components/cards/MuseumCard';
 
 export default function MuseumGrid() {
+  const history = useHistory();
+
+  const handleCardClick = () => {
+    history.push('museums/1');
+  };
+
   return (
     <Box mt={3} mb={5}>
       <Container>
@@ -19,6 +26,7 @@ export default function MuseumGrid() {
             image="https://source.unsplash.com/XFvw2-XoZcw/456x600"
             city="New York"
             countryCode="US"
+            onClick={handleCardClick}
           />
           <MuseumCard
             name="British Museum"
