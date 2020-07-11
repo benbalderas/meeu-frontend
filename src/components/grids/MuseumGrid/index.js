@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMuseums } from 'redux/MuseumsDuck';
 import { denormalizeData } from 'helpers/formatters';
@@ -8,7 +7,6 @@ import { Container, Grid, Box } from '@material-ui/core';
 import MuseumCard from 'components/cards/MuseumCard';
 
 export default function MuseumGrid() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const museums = useSelector((state) => state.museums.items);
 
@@ -18,10 +16,6 @@ export default function MuseumGrid() {
   }, [dispatch]);
   // empty brakets prevent useEffect from being executed constantly
   // a value can be passed inside, and that would make the useEffect execute each time the value changes, E.g. id
-
-  const handleCardClick = () => {
-    history.push('museums/1');
-  };
 
   return (
     <Box mt={3} mb={5}>
