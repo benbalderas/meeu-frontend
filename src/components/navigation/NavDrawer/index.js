@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { logout } from 'redux/UserDuck';
 
 import {
   Drawer,
@@ -14,6 +16,8 @@ import {
   ListItemText,
   Toolbar,
   IconButton,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
@@ -46,17 +50,33 @@ export default function NavDrawer({
 }) {
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push('/login');
+  };
 
   const drawer = (
     <div>
       <Toolbar />
+
       <CardHeader
         avatar={<Avatar alt={userName} src={userAvatar} />}
         title={userName}
         subheader={userType}
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" onClick={handleClick}>
             <ArrowDropDownIcon />
           </IconButton>
         }
@@ -64,6 +84,16 @@ export default function NavDrawer({
           title: 'MuiTypography-subtitle1',
         }}
       />
+
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
 
       <List>
         {sections.map((section) => (
