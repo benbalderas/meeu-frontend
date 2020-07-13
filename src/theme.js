@@ -150,7 +150,27 @@ const theme = createMuiTheme({
       root: {
         paddingTop: 16,
         paddingBottom: 16,
+        marginTop: 8,
+      },
+      contained: {
         marginTop: 40,
+      },
+    },
+
+    // Form
+    MuiFormControl: {
+      root: {
+        marginTop: 24,
+      },
+    },
+    MuiInputLabel: {
+      formControl: {
+        left: 4,
+      },
+    },
+    MuiInput: {
+      root: {
+        padding: 4,
       },
     },
   },
