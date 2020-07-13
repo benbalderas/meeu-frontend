@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action) {
     case LOGIN_ERROR:
       return { status: 'error', error: action.error };
     case LOGOUT:
-      return initialState;
+      return { ...state, data: localStorage.clear() };
     default:
       return state;
   }
