@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { login } from 'redux/UserDuck';
 
@@ -14,12 +14,14 @@ import {
   IconButton,
   Typography,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 export default function Auth() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const status = useSelector((state) => state.user.status);
   const isLogin = location.pathname.includes('login');
 
   // States
@@ -68,6 +70,17 @@ export default function Auth() {
         )}
 
         <form onSubmit={handleSubmit}>
+          {status === 'error' && (
+            <Typography
+              variant="body2"
+              color="primary"
+              display="block"
+              align="center"
+            >
+              Incorrect credentials
+            </Typography>
+          )}
+
           <TextField
             fullWidth
             name="email"
@@ -99,7 +112,18 @@ export default function Auth() {
             />
           </FormControl>
 
-          <Button fullWidth variant="contained" color="primary" type="submit">
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={status === 'pending' ? true : false}
+            endIcon={
+              status === 'pending' && (
+                <CircularProgress size={18} color="secondary" />
+              )
+            }
+          >
             {isLogin ? 'Login' : 'Create Account'}
           </Button>
         </form>
