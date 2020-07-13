@@ -7,7 +7,7 @@ const LOGIN_ERROR = 'meeuapp/user/LOGIN_ERROR';
 const LOGOUT = 'meeuapp/user/LOGOUT';
 
 const initialState = {
-  data: undefined,
+  data: JSON.parse(localStorage.getItem('user')),
   status: '',
   error: undefined,
 };
@@ -45,14 +45,17 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-// pass data to think in firs parameter
+// pass data to thunk in firs parameter
 export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
     .post('http://localhost:3000/login', credentials)
     .then((res) => {
-      dispatch(loginSuccess(res.data.user));
+      const user = res.data.user;
+
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch(loginSuccess(user));
     })
     .catch((res) => {
       dispatch(loginError(res.response.data));
