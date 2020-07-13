@@ -7,7 +7,7 @@ const LOGIN_ERROR = 'meeuapp/user/LOGIN_ERROR';
 const LOGOUT = 'meeuapp/user/LOGOUT';
 
 const initialState = {
-  data: undefined,
+  data: JSON.parse(localStorage.getItem('user')),
   status: '',
   error: undefined,
 };
