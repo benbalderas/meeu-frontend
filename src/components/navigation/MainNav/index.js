@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MainNav({ children, screenTitle }) {
+  const user = useSelector((state) => state.user.data);
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,18 +25,18 @@ function MainNav({ children, screenTitle }) {
 
   return (
     <Box display="flex">
-      <NavBar
-        screenTitle={screenTitle}
-        onClick={handleDrawerToggle}
-        isMain
-      >
+      <NavBar screenTitle={screenTitle} onClick={handleDrawerToggle} isMain>
         <MenuIcon />
       </NavBar>
 
       <NavDrawer
-        userAvatar="https://images.unsplash.com/photo-1554384645-13eab165c24b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-        userName="Yuna Oluna"
-        userType="Visitor"
+        userAvatar={
+          user
+            ? user.avatar
+            : 'https://cdn.glitch.com/9c389208-b279-4e96-bcbc-e5f8712d8706%2Fplaceholder-landscape-med.png'
+        }
+        userName={user ? user.name : 'Name'}
+        userType={user ? user.role : ''}
         handleDrawer={handleDrawerToggle}
         open={mobileOpen}
         sections={SECTIONS}

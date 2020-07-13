@@ -90,8 +90,6 @@ export default function NavDrawer({
           </NavLink>
         ))}
       </List>
-
-      {/* TODO: Add logo */}
     </div>
   );
 
