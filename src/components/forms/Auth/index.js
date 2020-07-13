@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
+import { login } from 'redux/UserDuck';
 
 import {
   Container,
@@ -17,26 +19,33 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 export default function Auth() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const isLogin = location.pathname.includes('login');
 
-  const [values, setValues] = useState({
-    password: '',
-    showPassword: false,
-  });
+  // States
+  const [credentials, setCredentials] = useState({});
+  const [passShow, setPassShow] = useState(false);
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
+  // Handlers
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setPassShow(!passShow);
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const handleSubmit = () => {};
+  const handleChange = (event) => {
+    const key = event.target.name;
+    const value = event.target.value;
+
+    setCredentials((prevState) => ({ ...prevState, [key]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(login(credentials));
+  };
 
   return (
     <Box mt={3} mb={5}>
@@ -59,15 +68,23 @@ export default function Auth() {
         )}
 
         <form onSubmit={handleSubmit}>
-          <TextField fullWidth id="email" label="Email" type="email" required />
+          <TextField
+            fullWidth
+            name="email"
+            id="email"
+            label="Email"
+            type="email"
+            required
+            onChange={handleChange}
+          />
 
           <FormControl fullWidth required>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
+              name="password"
               id="password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
+              type={passShow ? 'text' : 'password'}
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -75,14 +92,14 @@ export default function Auth() {
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {passShow ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
 
-          <Button fullWidth variant="contained" color="primary">
+          <Button fullWidth variant="contained" color="primary" type="submit">
             {isLogin ? 'Login' : 'Create Account'}
           </Button>
         </form>
