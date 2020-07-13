@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import { login } from 'redux/UserDuck';
 
 import {
@@ -20,6 +20,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 export default function Auth() {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
   const status = useSelector((state) => state.user.status);
   const isLogin = location.pathname.includes('login');
@@ -46,7 +47,10 @@ export default function Auth() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(login(credentials));
+
+    dispatch(login(credentials)).then(() => {
+      history.push('/museums');
+    });
   };
 
   return (
@@ -70,7 +74,7 @@ export default function Auth() {
         )}
 
         <form onSubmit={handleSubmit}>
-          {status === 'error' && (
+          {isLogin && status === 'error' && (
             <Typography
               variant="body2"
               color="primary"

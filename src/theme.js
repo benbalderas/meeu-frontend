@@ -150,7 +150,10 @@ const theme = createMuiTheme({
       root: {
         paddingTop: 16,
         paddingBottom: 16,
-        marginTop: 24,
+        marginTop: 8,
+      },
+      contained: {
+        marginTop: 40,
       },
     },
 
