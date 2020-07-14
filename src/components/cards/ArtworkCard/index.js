@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 0 auto',
     width: '45%',
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(2),
   },
   image: {
     width: '45%',
