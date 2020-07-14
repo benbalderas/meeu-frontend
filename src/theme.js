@@ -65,9 +65,16 @@ const theme = createMuiTheme({
       fontWeight: 300,
       fontStyle: 'normal',
       fontSize: '1.125rem',
+      lineHeight: 1.125,
     },
     body2: {
       lineHeight: 2,
+    },
+    caption: {
+      fontFamily: 'Vulf Mono',
+      fontWeight: 300,
+      fontSize: '0.875rem',
+      lineHeight: 1.125,
     },
     button: {
       fontSize: '0.75rem',
