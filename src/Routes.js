@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import MuseumGrid from 'components/grids/MuseumGrid';
 import MuseumDetails from 'components/details/MuseumDetails';
 import Auth from 'components/forms/Auth';
+import CreateExhibit from 'components/forms/CreateExhibit';
+import CreateArtwork from 'components/forms/CreateArtwork';
 
 const Routes = () => (
   <Switch>
@@ -10,6 +12,8 @@ const Routes = () => (
     <Route exact path="/signup" component={() => <Auth />} />
     <Route exact path="/museums" component={() => <MuseumGrid />} />
     <Route exact path="/museums/:id" component={() => <MuseumDetails />} />
+    <Route exact path="/exhibits/create" component={() => <CreateExhibit />} />
+    <Route exact path="/artworks/create" component={() => <CreateArtwork />} />
   </Switch>
 );
 
