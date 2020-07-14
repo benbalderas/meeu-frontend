@@ -8,19 +8,32 @@ import {
   CardActionArea,
   CardContent,
   Typography,
+  Box,
+  Chip,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  metaData: {
+    '& > *:not(:first-child)': {
+      marginLeft: theme.spacing(1),
+    },
+  },
   description: {
     display: '-webkit-box',
     boxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineClamp: 2,
+    lineClamp: 3,
   },
 }));
 
-export default function ExhibitCard({ _id, title, type, description }) {
+export default function ExhibitCard({
+  _id,
+  title,
+  type,
+  description,
+  artworks,
+}) {
   const classes = useStyles();
 
   return (
@@ -33,14 +46,26 @@ export default function ExhibitCard({ _id, title, type, description }) {
                 {title}
               </Typography>
 
-              <Typography
-                gutterBottom
-                variant="subtitle1"
-                color="textSecondary"
-                display="block"
+              <Box
+                className={classes.metaData}
+                mb={2}
+                mt={3}
+                display="flex"
+                alignItems="center"
               >
-                {type}
-              </Typography>
+                <Chip
+                  variant="default"
+                  size="small"
+                  color="primary"
+                  label={type}
+                />
+
+                <Chip
+                  variant="default"
+                  size="small"
+                  label={`${artworks.length} artworks`}
+                />
+              </Box>
 
               <Typography
                 className={classes.description}
