@@ -14,35 +14,37 @@ import {
 const useStyles = makeStyles((theme) => ({
   details: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
   },
   content: {
     flex: '1 0 auto',
+    width: '45%',
+    marginLeft: theme.spacing(3),
   },
   image: {
-    width: 151,
+    width: '45%',
   },
 }));
 
-export default function ArtworkCard({ _id, image, name, author }) {
+export default function ArtworkCard({ _id, image, title, author }) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={12} md={4} lg={3}>
+    <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card elevation={0}>
         <CardActionArea>
           <Link className={classes.details} to={`/museums/${_id}`}>
+            <CardMedia className={classes.image} image={image} title={title} />
+
             <CardContent className={classes.content}>
-              <Typography variant="subtitle1" component="h2">
-                {name}
+              <Typography gutterBottom variant="h5" component="h2">
+                {title}
               </Typography>
 
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="caption" color="textSecondary" component="p">
                 {author}
               </Typography>
             </CardContent>
-
-            <CardMedia className={classes.image} image={image} title={name} />
           </Link>
         </CardActionArea>
       </Card>
