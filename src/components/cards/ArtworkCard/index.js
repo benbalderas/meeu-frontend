@@ -33,7 +33,7 @@ export default function ArtworkCard({ _id, image, title, author }) {
     <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card elevation={0}>
         <CardActionArea>
-          <Link className={classes.details} to={`/museums/${_id}`}>
+          <Link className={classes.details} to={`/artworks/${_id}`}>
             <CardMedia className={classes.image} image={image} title={title} />
 
             <CardContent className={classes.content}>

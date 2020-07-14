@@ -163,6 +163,12 @@ const theme = createMuiTheme({
         marginTop: 40,
       },
     },
+    MuiChip: {
+      root: {
+        paddingBottom: 4,
+        borderRadius: 6,
+      },
+    },
 
     // Form
     MuiFormControl: {
@@ -178,6 +184,13 @@ const theme = createMuiTheme({
     MuiInput: {
       root: {
         padding: 4,
+      },
+    },
+
+    // Typography
+    MuiTypography: {
+      gutterBottom: {
+        marginBottom: '1rem',
       },
     },
   },

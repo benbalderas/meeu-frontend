@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import museums from 'redux/MuseumsDuck';
 import artworks from 'redux/ArtworksDuck';
+import exhibits from 'redux/ExhibitsDuck';
 import user from 'redux/UserDuck';
 
 export const rootReducer = combineReducers({
   museums,
-  user,
   artworks,
+  exhibits,
+  user,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
