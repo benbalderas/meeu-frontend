@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchArtworks } from 'redux/ArtworksDuck';
 import { denormalizeData } from 'helpers/formatters';
 
-import { Container, Grid, Box, Fab } from '@material-ui/core';
+import { Container, Grid, Box } from '@material-ui/core';
 import ArtworkCard from 'components/cards/ArtworkCard';
 import FloatingAction from 'components/buttons/FloatingAction';
 
