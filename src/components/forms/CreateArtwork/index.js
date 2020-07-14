@@ -12,6 +12,9 @@ import {
   Button,
 } from '@material-ui/core';
 
+import CloseIcon from '@material-ui/icons/Close';
+import NavBar from 'components/navigation/NavBar';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateArtwork() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
 
   const [art, setArt] = useState({});
   const [filePreview, setFilePreview] = useState('');
@@ -57,104 +60,114 @@ export default function CreateArtwork() {
     dispatch(createArtwork(formData, push));
   };
 
+  const handleBackClick = () => {
+    goBack();
+  };
+
   return (
-    <Box mt={3} mb={5}>
-      <Container maxWidth="xs">
-        <Typography gutterBottom variant="h2">
-          New Art
-        </Typography>
+    <>
+      <NavBar screenTitle={null} onClick={handleBackClick}>
+        <CloseIcon />
+      </NavBar>
 
-        <Typography gutterBottom variant="subtitle2">
-          For:
-        </Typography>
+      <Box mt={3} mb={5}>
+        <Container maxWidth="xs">
+          <Typography gutterBottom variant="h2">
+            New Art
+          </Typography>
 
-        <Typography gutterBottom variant="subtitle1">
-          From Refusé to Célébrité
-        </Typography>
+          <Typography gutterBottom variant="subtitle2">
+            For:
+          </Typography>
 
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            name="title"
-            id="title"
-            label="Title"
-            type="text"
-            required
-            onChange={handleChange}
-          />
+          <Typography gutterBottom variant="subtitle1">
+            From Refusé to Célébrité
+          </Typography>
 
-          <TextField
-            fullWidth
-            name="author"
-            id="author"
-            label="Author"
-            type="text"
-            required
-            onChange={handleChange}
-          />
-
-          <Box mt={3}>
-            <input
-              name="image"
-              accept="image/png, image/jpeg"
-              className={classes.input}
-              id="file"
-              type="file"
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              name="title"
+              id="title"
+              label="Title"
+              type="text"
+              required
               onChange={handleChange}
             />
 
-            {art.image && (
-              <img
-                className={classes.preview}
-                src={filePreview}
-                alt="preview"
+            <TextField
+              fullWidth
+              name="author"
+              id="author"
+              label="Author"
+              type="text"
+              required
+              onChange={handleChange}
+            />
+
+            <Box mt={3}>
+              <input
+                name="image"
+                accept="image/png, image/jpeg"
+                className={classes.input}
+                id="file"
+                type="file"
+                onChange={handleChange}
               />
-            )}
 
-            <label htmlFor="file">
-              <Button fullWidth variant="outlined" component="span">
-                {art.image ? 'Replace Image' : 'Add Image'}
-              </Button>
-            </label>
-          </Box>
+              {art.image && (
+                <img
+                  className={classes.preview}
+                  src={filePreview}
+                  alt="preview"
+                />
+              )}
 
-          <TextField
-            fullWidth
-            name="year"
-            id="year"
-            label="Year"
-            type="number"
-            required
-            onChange={handleChange}
-          />
+              <label htmlFor="file">
+                <Button fullWidth variant="outlined" component="span">
+                  {art.image ? 'Replace Image' : 'Add Image'}
+                </Button>
+              </label>
+            </Box>
 
-          <TextField
-            fullWidth
-            name="medium"
-            id="medium"
-            label="Medium"
-            type="text"
-            required
-            onChange={handleChange}
-          />
+            <TextField
+              fullWidth
+              name="year"
+              id="year"
+              label="Year"
+              type="number"
+              required
+              onChange={handleChange}
+            />
 
-          <TextField
-            fullWidth
-            name="description"
-            id="desc"
-            label="Description"
-            type="text"
-            multiline
-            rows={4}
-            required
-            onChange={handleChange}
-          />
+            <TextField
+              fullWidth
+              name="medium"
+              id="medium"
+              label="Medium"
+              type="text"
+              required
+              onChange={handleChange}
+            />
 
-          <Button fullWidth variant="contained" color="primary" type="submit">
-            Create
-          </Button>
-        </form>
-      </Container>
-    </Box>
+            <TextField
+              fullWidth
+              name="description"
+              id="desc"
+              label="Description"
+              type="text"
+              multiline
+              rows={4}
+              required
+              onChange={handleChange}
+            />
+
+            <Button fullWidth variant="contained" color="primary" type="submit">
+              Create
+            </Button>
+          </form>
+        </Container>
+      </Box>
+    </>
   );
 }

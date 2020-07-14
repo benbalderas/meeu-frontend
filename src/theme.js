@@ -169,6 +169,11 @@ const theme = createMuiTheme({
         borderRadius: 6,
       },
     },
+    MuiFab: {
+      label: {
+        lineHeight: 1,
+      },
+    },
 
     // Form
     MuiFormControl: {
