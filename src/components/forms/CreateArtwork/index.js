@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { createArtwork } from 'redux/ArtworksDuck';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -18,23 +21,40 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: 'none',
   },
+  preview: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    borderRadius: 16,
+  },
 }));
 
 export default function CreateArtwork() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { push } = useHistory();
+
   const [art, setArt] = useState({});
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    console.log(art);
-  };
+  const [filePreview, setFilePreview] = useState('');
 
   const handleChange = (event) => {
     const key = event.target.name;
-    const value = event.targe.value || event.target.files[0];
+    const value = event.target.value || event.target.files[0];
 
     setArt((prevState) => ({ ...prevState, [key]: value }));
+
+    if (event.target.name === 'image')
+      setFilePreview(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    for (let key in art) {
+      formData.append(key, art[key]);
+    }
+
+    dispatch(createArtwork(formData, push));
   };
 
   return (
@@ -44,8 +64,12 @@ export default function CreateArtwork() {
           New Art
         </Typography>
 
-        <Typography gutterBottom variant="h5">
-          For: From Refusé to Célébrité
+        <Typography gutterBottom variant="subtitle2">
+          For:
+        </Typography>
+
+        <Typography gutterBottom variant="subtitle1">
+          From Refusé to Célébrité
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -56,6 +80,7 @@ export default function CreateArtwork() {
             label="Title"
             type="text"
             required
+            onChange={handleChange}
           />
 
           <TextField
@@ -65,6 +90,7 @@ export default function CreateArtwork() {
             label="Author"
             type="text"
             required
+            onChange={handleChange}
           />
 
           <Box mt={3}>
@@ -74,20 +100,22 @@ export default function CreateArtwork() {
               className={classes.input}
               id="file"
               type="file"
+              onChange={handleChange}
             />
 
-            <label htmlFor="contained-button-file">
+            {art.image && (
+              <img
+                className={classes.preview}
+                src={filePreview}
+                alt="preview"
+              />
+            )}
+
+            <label htmlFor="file">
               <Button fullWidth variant="outlined" component="span">
-                Upload image
+                {art.image ? 'Replace Image' : 'Add Image'}
               </Button>
             </label>
-
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="icon-button-file"
-              type="file"
-            />
           </Box>
 
           <TextField
@@ -97,6 +125,7 @@ export default function CreateArtwork() {
             label="Year"
             type="number"
             required
+            onChange={handleChange}
           />
 
           <TextField
@@ -106,6 +135,7 @@ export default function CreateArtwork() {
             label="Medium"
             type="text"
             required
+            onChange={handleChange}
           />
 
           <TextField
@@ -117,6 +147,7 @@ export default function CreateArtwork() {
             multiline
             rows={4}
             required
+            onChange={handleChange}
           />
 
           <Button fullWidth variant="contained" color="primary" type="submit">

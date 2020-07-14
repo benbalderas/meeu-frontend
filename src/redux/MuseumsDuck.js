@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { normalizeData } from 'helpers/formatters';
 
-const LOADING = 'meeuapp/musuems/LOADING';
+const LOADING = 'meeuapp/museums/LOADING';
 const GET_MUSEUMS_SUCCESS = 'meeuapp/museums/GET_MUSEUMS_SUCCESS';
 const GET_MUSEUMS_ERROR = 'meeuapp/museums/GET_MUSEUMS_ERROR';
 
@@ -24,7 +24,7 @@ export default function reducer(state = intialState, action) {
   }
 }
 
-export const loadingProducts = () => ({
+export const loadingMuseums = () => ({
   type: LOADING,
 });
 
@@ -40,7 +40,7 @@ export const getMuseumsError = (error) => ({
 
 // Thunk
 export const fetchMuseums = () => (dispatch) => {
-  dispatch(loadingProducts());
+  dispatch(loadingMuseums());
 
   return axios
     .get('http://localhost:3000/museums')
