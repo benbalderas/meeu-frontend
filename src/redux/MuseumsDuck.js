@@ -42,8 +42,8 @@ export const getMuseumsError = (error) => ({
 export const fetchMuseums = (adminId) => (dispatch) => {
   dispatch(loadingMuseums());
   const url = adminId
-    ? `http://localhost:3000/museums?admin=${adminId}`
-    : 'http://localhost:3000/museums';
+    ? `http://localhost:3000/api/museums?admin=${adminId}`
+    : 'http://localhost:3000/api/museums';
 
   return axios
     .get(url)

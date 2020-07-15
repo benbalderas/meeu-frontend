@@ -50,7 +50,7 @@ export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post('http://localhost:3000/login', credentials)
+    .post('http://localhost:3000/api/login', credentials)
     .then((res) => {
       const user = res.data.user;
 

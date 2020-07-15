@@ -64,7 +64,7 @@ export const fetchArtworks = () => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .get('http://localhost:3000/artworks')
+    .get('http://localhost:3000/api/artworks')
     .then((res) => {
       const items = normalizeData(res.data.result);
 
@@ -79,7 +79,7 @@ export const createArtwork = (data, push) => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .post('http://localhost:3000/artworks', data, {
+    .post('http://localhost:3000/api/artworks', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
