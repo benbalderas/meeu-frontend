@@ -18,10 +18,19 @@ import NavBar from 'components/navigation/NavBar';
 
 export default function CreateExhibit() {
   const { push } = useHistory();
-  const [type, setType] = useState('');
+  const [exhibit, setExhibit] = useState({
+    title: '',
+    description: '',
+    type: '',
+    endDate: '',
+    museum: '',
+  });
 
   const handleChange = (event) => {
-    setType(event.target.value);
+    const key = event.target.name;
+    const value = event.target.value;
+
+    setExhibit((prevState) => ({ ...prevState, [key]: value }));
   };
 
   const handleBackClick = () => {
@@ -42,8 +51,8 @@ export default function CreateExhibit() {
 
           <form>
             <TextField
-              fullWidth
               name="title"
+              fullWidth
               id="title"
               label="Exhibit Title"
               type="text"
@@ -51,8 +60,8 @@ export default function CreateExhibit() {
             />
 
             <TextField
-              fullWidth
               name="description"
+              fullWidth
               id="desc"
               label="Description"
               type="text"
@@ -61,16 +70,21 @@ export default function CreateExhibit() {
               required
             />
 
-            <FormControl fullWidth required name="type">
+            <FormControl fullWidth required>
               <InputLabel id="type">Type</InputLabel>
 
-              <Select labelId="type" value={type} onChange={handleChange}>
+              <Select
+                name="type"
+                labelId="type"
+                value={exhibit.type}
+                onChange={handleChange}
+              >
                 <MenuItem value="Permanent">Permanent</MenuItem>
                 <MenuItem value="Temporary">Temporary</MenuItem>
               </Select>
             </FormControl>
 
-            {type === 'Temporary' && (
+            {exhibit.type === 'Temporary' && (
               <TextField
                 fullWidth
                 name="endDate"
