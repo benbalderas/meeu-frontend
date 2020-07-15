@@ -1,8 +1,8 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { createArtwork } from 'redux/ArtworksDuck';
 import { denormalizeData } from 'helpers/formatters';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
+import { createArtwork } from 'redux/ArtworksDuck';
 import { fetchMuseums } from 'redux/MuseumsDuck';
 import { fetchExhibits } from 'redux/ExhibitsDuck';
 import { makeStyles } from '@material-ui/core/styles';
@@ -117,12 +117,22 @@ export default function CreateArtwork() {
           {adminMuseumExhibits.length === 0 ? (
             <>
               <Typography gutterBottom variant="h4">
-                No exhibits yet
+                No exhibits yet!
               </Typography>
 
-              <Typography gutterBottom variant="body1">
+              <Typography gutterBottom variant="body2" color="textSecondary">
                 To create an artwork you must first create an exhibit
               </Typography>
+
+              <Button
+                fullWidth
+                variant="outlined"
+                size="large"
+                component={Link}
+                to="/exhibits/create"
+              >
+                Create an Exhibit
+              </Button>
             </>
           ) : (
             <form onSubmit={handleSubmit}>
