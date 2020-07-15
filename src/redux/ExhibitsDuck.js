@@ -84,7 +84,7 @@ export const createExhibit = (data, push) => (dispatch) => {
     .post('http://localhost:3000/api/exhibits', data)
     .then((res) => {
       dispatch(createExhibitSuccess(res.data.result));
-      push('/artworks');
+      push('/exhibits');
     })
     .catch((err) => {
       dispatch(createExhibitError(err));
