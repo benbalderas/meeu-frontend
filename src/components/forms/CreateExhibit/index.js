@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import NavBar from 'components/navigation/NavBar';
 
 export default function CreateExhibit() {
-  const { push, goBack } = useHistory();
+  const { push } = useHistory();
   const [type, setType] = useState('');
 
   const handleChange = (event) => {
