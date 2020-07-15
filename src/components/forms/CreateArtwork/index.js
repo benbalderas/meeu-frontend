@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createArtwork } from 'redux/ArtworksDuck';
+import { denormalizeData } from 'helpers/formatters';
+import { fetchMuseums } from 'redux/MuseumsDuck';
+import { fetchExhibits } from 'redux/ExhibitsDuck';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -9,6 +12,10 @@ import {
   Box,
   Typography,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   Button,
 } from '@material-ui/core';
 
@@ -36,9 +43,33 @@ export default function CreateArtwork() {
   const dispatch = useDispatch();
   const { push, goBack } = useHistory();
 
-  const [art, setArt] = useState({});
+  // Component states
+  const [art, setArt] = useState({
+    exhibit: '',
+    title: '',
+    author: '',
+    image: '',
+    year: '',
+    medium: '',
+    description: '',
+  });
   const [filePreview, setFilePreview] = useState('');
 
+  // States from store
+  const user = useSelector((state) => state.user.data._id);
+  const adminMuseum = useSelector(
+    (state) => denormalizeData(state.museums.items)[0]._id
+  );
+  const adminMuseumExhibits = useSelector((state) =>
+    denormalizeData(state.exhibits.items)
+  );
+
+  useLayoutEffect(() => {
+    dispatch(fetchMuseums(user));
+    dispatch(fetchExhibits(adminMuseum));
+  }, [dispatch, user, adminMuseum]);
+
+  // Handlers
   const handleChange = (event) => {
     const key = event.target.name;
     const value = event.target.files || event.target.value;
@@ -80,96 +111,122 @@ export default function CreateArtwork() {
             New Art
           </Typography>
 
-          <Typography gutterBottom variant="subtitle2">
-            For:
-          </Typography>
+          {adminMuseumExhibits.length === 0 ? (
+            <>
+              <Typography gutterBottom variant="h4">
+                No exhibits yet
+              </Typography>
 
-          <Typography gutterBottom variant="subtitle1">
-            From Refusé to Célébrité
-          </Typography>
+              <Typography gutterBottom variant="body1">
+                To create an artwork you must first create an exhibit
+              </Typography>
+            </>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <FormControl fullWidth required>
+                <InputLabel id="exhibit">Exhibit</InputLabel>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              name="title"
-              id="title"
-              label="Title"
-              type="text"
-              required
-              onChange={handleChange}
-            />
+                <Select
+                  name="exhibit"
+                  labelId="exhibit"
+                  value={art.exhibit}
+                  onChange={handleChange}
+                >
+                  {adminMuseumExhibits.map((exhibit, key) => (
+                    <MenuItem value={exhibit._id} key={key}>
+                      {exhibit.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
 
-            <TextField
-              fullWidth
-              name="author"
-              id="author"
-              label="Author"
-              type="text"
-              required
-              onChange={handleChange}
-            />
-
-            <Box mt={3}>
-              <input
-                name="image"
-                accept="image/png, image/jpeg"
-                className={classes.input}
-                id="file"
-                type="file"
+              <TextField
+                fullWidth
+                name="title"
+                id="title"
+                label="Title"
+                type="text"
+                required
                 onChange={handleChange}
               />
 
-              {art.image && (
-                <img
-                  className={classes.preview}
-                  src={filePreview}
-                  alt="preview"
+              <TextField
+                fullWidth
+                name="author"
+                id="author"
+                label="Author"
+                type="text"
+                required
+                onChange={handleChange}
+              />
+
+              <Box mt={3}>
+                <input
+                  name="image"
+                  accept="image/png, image/jpeg"
+                  className={classes.input}
+                  id="file"
+                  type="file"
+                  onChange={handleChange}
                 />
-              )}
 
-              <label htmlFor="file">
-                <Button fullWidth variant="outlined" component="span">
-                  {art.image ? 'Replace Image' : 'Add Image'}
-                </Button>
-              </label>
-            </Box>
+                {art.image && (
+                  <img
+                    className={classes.preview}
+                    src={filePreview}
+                    alt="preview"
+                  />
+                )}
 
-            <TextField
-              fullWidth
-              name="year"
-              id="year"
-              label="Year"
-              type="number"
-              required
-              onChange={handleChange}
-            />
+                <label htmlFor="file">
+                  <Button fullWidth variant="outlined" component="span">
+                    {art.image ? 'Replace Image' : 'Add Image'}
+                  </Button>
+                </label>
+              </Box>
 
-            <TextField
-              fullWidth
-              name="medium"
-              id="medium"
-              label="Medium"
-              type="text"
-              required
-              onChange={handleChange}
-            />
+              <TextField
+                fullWidth
+                name="year"
+                id="year"
+                label="Year"
+                type="number"
+                required
+                onChange={handleChange}
+              />
 
-            <TextField
-              fullWidth
-              name="description"
-              id="desc"
-              label="Description"
-              type="text"
-              multiline
-              rows={4}
-              required
-              onChange={handleChange}
-            />
+              <TextField
+                fullWidth
+                name="medium"
+                id="medium"
+                label="Medium"
+                type="text"
+                required
+                onChange={handleChange}
+              />
 
-            <Button fullWidth variant="contained" color="primary" type="submit">
-              Create
-            </Button>
-          </form>
+              <TextField
+                fullWidth
+                name="description"
+                id="desc"
+                label="Description"
+                type="text"
+                multiline
+                rows={4}
+                required
+                onChange={handleChange}
+              />
+
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Create
+              </Button>
+            </form>
+          )}
         </Container>
       </Box>
     </>

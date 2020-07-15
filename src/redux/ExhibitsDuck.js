@@ -40,7 +40,9 @@ export const getExhibitsError = (error) => ({
 
 export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
-  const url = museumId ? `http://localhost:3000/exhibits?museum=${museumId}` : 'http://localhost:3000/exhibits'
+  const url = museumId
+    ? `http://localhost:3000/exhibits?museum=${museumId}`
+    : 'http://localhost:3000/exhibits';
 
   return axios
     .get(url)

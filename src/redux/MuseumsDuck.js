@@ -6,7 +6,7 @@ const GET_MUSEUMS_SUCCESS = 'meeuapp/museums/GET_MUSEUMS_SUCCESS';
 const GET_MUSEUMS_ERROR = 'meeuapp/museums/GET_MUSEUMS_ERROR';
 
 const intialState = {
-  items: {},
+  items: { _id: '' },
   status: '',
   error: undefined,
 };
@@ -39,11 +39,14 @@ export const getMuseumsError = (error) => ({
 });
 
 // Thunk
-export const fetchMuseums = () => (dispatch) => {
+export const fetchMuseums = (adminId) => (dispatch) => {
   dispatch(loadingMuseums());
+  const url = adminId
+    ? `http://localhost:3000/museums?admin=${adminId}`
+    : 'http://localhost:3000/museums';
 
   return axios
-    .get('http://localhost:3000/museums')
+    .get(url)
     .then((res) => {
       const items = normalizeData(res.data.result);
 
