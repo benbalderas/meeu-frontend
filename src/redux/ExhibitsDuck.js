@@ -38,11 +38,14 @@ export const getExhibitsError = (error) => ({
   error,
 });
 
-export const fetchExhibits = () => (dispatch) => {
+export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
+  const url = museumId
+    ? `http://localhost:3000/exhibits?museum=${museumId}`
+    : 'http://localhost:3000/exhibits';
 
   return axios
-    .get('http://localhost:3000/exhibits')
+    .get(url)
     .then((res) => {
       const items = normalizeData(res.data.result);
 
@@ -52,3 +55,5 @@ export const fetchExhibits = () => (dispatch) => {
       dispatch(getExhibitsError(err));
     });
 };
+
+// create new thunk that receives query params to get a list of exhibits in a museum
