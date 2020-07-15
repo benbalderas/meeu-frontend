@@ -56,18 +56,19 @@ export default function CreateArtwork() {
   const [filePreview, setFilePreview] = useState('');
 
   // States from store
-  const user = useSelector((state) => state.user.data._id);
+  const userId = useSelector((state) => state.user.data._id);
   const adminMuseum = useSelector(
     (state) => denormalizeData(state.museums.items)[0]._id
   );
+
+  useLayoutEffect(() => {
+    dispatch(fetchMuseums(userId));
+    dispatch(fetchExhibits(adminMuseum));
+  }, [dispatch, userId, adminMuseum]);
+
   const adminMuseumExhibits = useSelector((state) =>
     denormalizeData(state.exhibits.items)
   );
-
-  useLayoutEffect(() => {
-    dispatch(fetchMuseums(user));
-    dispatch(fetchExhibits(adminMuseum));
-  }, [dispatch, user, adminMuseum]);
 
   // Handlers
   const handleChange = (event) => {
