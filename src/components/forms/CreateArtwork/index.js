@@ -41,7 +41,7 @@ export default function CreateArtwork() {
 
   const handleChange = (event) => {
     const key = event.target.name;
-    const value = event.target.value || event.target.files[0];
+    const value = event.target.files || event.target.value;
 
     setArt((prevState) => ({ ...prevState, [key]: value }));
 
@@ -54,7 +54,11 @@ export default function CreateArtwork() {
     const formData = new FormData();
 
     for (let key in art) {
-      formData.append(key, art[key]);
+      if (key === 'image') {
+        formData.append(key, art[key][0]);
+      } else {
+        formData.append(key, art[key]);
+      }
     }
 
     dispatch(createArtwork(formData, push));
