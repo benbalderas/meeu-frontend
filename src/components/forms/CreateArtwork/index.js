@@ -17,6 +17,7 @@ import {
   Select,
   MenuItem,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -43,20 +44,9 @@ export default function CreateArtwork() {
   const dispatch = useDispatch();
   const { push, goBack } = useHistory();
 
-  // Component states
-  const [art, setArt] = useState({
-    exhibit: '',
-    title: '',
-    author: '',
-    image: '',
-    year: '',
-    medium: '',
-    description: '',
-  });
-  const [filePreview, setFilePreview] = useState('');
-
   // States from store
   const userId = useSelector((state) => state.user.data._id);
+  const status = useSelector((state) => state.artworks.status);
   const adminMuseum = useSelector(
     (state) => denormalizeData(state.museums.items)[0]._id
   );
@@ -69,6 +59,18 @@ export default function CreateArtwork() {
   const adminMuseumExhibits = useSelector((state) =>
     denormalizeData(state.exhibits.items)
   );
+
+  // Component states
+  const [art, setArt] = useState({
+    exhibit: '',
+    title: '',
+    author: '',
+    image: '',
+    year: '',
+    medium: '',
+    description: '',
+  });
+  const [filePreview, setFilePreview] = useState('');
 
   // Handlers
   const handleChange = (event) => {
@@ -218,13 +220,32 @@ export default function CreateArtwork() {
                 onChange={handleChange}
               />
 
+              {status === 'error' && (
+                <Box mt={3}>
+                  <Typography
+                    variant="body2"
+                    color="primary"
+                    display="block"
+                    align="center"
+                  >
+                    Please fill all fields
+                  </Typography>
+                </Box>
+              )}
+
               <Button
                 fullWidth
                 variant="contained"
                 color="primary"
                 type="submit"
+                disabled={status === 'pending' ? true : false}
+                endIcon={
+                  status === 'pending' && (
+                    <CircularProgress size={18} color="secondary" />
+                  )
+                }
               >
-                Create
+                {status === 'pending' ? 'Creating…' : 'Create'}
               </Button>
             </form>
           )}

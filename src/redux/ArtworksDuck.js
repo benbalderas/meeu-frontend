@@ -21,13 +21,15 @@ export default function reducer(state = intialState, action) {
     case GET_ARTWORKS_SUCCESS:
       return { ...state, status: 'success', items: { ...action.payload } };
     case GET_ARTWORKS_ERROR:
-      return { ...state, status: 'error', items: action.error };
+      return { status: 'error', error: action.error };
     case CREATE_ARTWORK_SUCCESS:
       return {
         ...state,
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
+    case CREATE_ARTWORK_ERROR:
+      return { status: 'error', error: action.error };
     default:
       return state;
   }
