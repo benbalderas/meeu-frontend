@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { denormalizeData } from 'helpers/formatters';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMuseums } from 'redux/MuseumsDuck';
 import { useHistory } from 'react-router-dom';
+import { createExhibit } from 'redux/ExhibitsDuck';
 
 import {
   Container,
@@ -17,13 +21,24 @@ import CloseIcon from '@material-ui/icons/Close';
 import NavBar from 'components/navigation/NavBar';
 
 export default function CreateExhibit() {
+  const dispatch = useDispatch();
   const { push } = useHistory();
+
+  const userId = useSelector((state) => state.user.data._id);
+  const status = useSelector((state) => state.artworks.status);
+  const adminMuseum = useSelector(
+    (state) => denormalizeData(state.museums.items)[0]._id
+  );
+
+  useEffect(() => {
+    dispatch(fetchMuseums(userId));
+  }, [dispatch, userId]);
+
   const [exhibit, setExhibit] = useState({
     title: '',
     description: '',
     type: '',
     endDate: '',
-    museum: '',
   });
 
   const handleChange = (event) => {
@@ -31,6 +46,13 @@ export default function CreateExhibit() {
     const value = event.target.value;
 
     setExhibit((prevState) => ({ ...prevState, [key]: value }));
+    console.log(exhibit);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    exhibit['museum'] = adminMuseum;
+    dispatch(createExhibit(exhibit, push));
   };
 
   const handleBackClick = () => {
@@ -49,7 +71,7 @@ export default function CreateExhibit() {
             New Exhibit
           </Typography>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <TextField
               name="title"
               fullWidth
@@ -57,6 +79,7 @@ export default function CreateExhibit() {
               label="Exhibit Title"
               type="text"
               required
+              onChange={handleChange}
             />
 
             <TextField
@@ -68,6 +91,7 @@ export default function CreateExhibit() {
               multiline
               rows={4}
               required
+              onChange={handleChange}
             />
 
             <FormControl fullWidth required>
@@ -92,6 +116,7 @@ export default function CreateExhibit() {
                 label="End Date"
                 type="date"
                 defaultValue="2020-08-24"
+                onChange={handleChange}
                 InputLabelProps={{
                   shrink: true,
                 }}

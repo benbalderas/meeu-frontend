@@ -93,7 +93,7 @@ export const createExhibit = (data, push) => (dispatch) => {
 
 // Headers config
 // {
-//     headers: {
-//       'Content-Type': 'multipart/form-data',
-//     },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data',
+    // },
 // }
