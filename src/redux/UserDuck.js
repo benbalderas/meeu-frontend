@@ -62,7 +62,7 @@ export const signupError = (error) => ({
   error,
 });
 
-// pass data to thunk in firs parameter
+// pass data to thunk in first parameter
 export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
 
@@ -86,6 +86,7 @@ export const signup = (data, push) => (dispatch) => {
     .post('http://localhost:3000/api/signup', data)
     .then((res) => {
       dispatch(signupSuccess(res.data.result));
+
       push('/login');
     })
     .catch((res) => {
