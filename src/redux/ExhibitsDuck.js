@@ -1,4 +1,5 @@
 import axios from 'axios';
+import base_url from 'constants/route';
 import { normalizeData } from 'helpers/formatters';
 
 const LOADING = 'meeuapp/exhibits/LOADING';
@@ -62,8 +63,8 @@ export const createExhibitError = (error) => ({
 export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
   const url = museumId
-    ? `http://localhost:3000/api/exhibits?museum=${museumId}`
-    : 'http://localhost:3000/api/exhibits';
+    ? `${base_url}/exhibits?museum=${museumId}`
+    : `${base_url}/exhibits`;
 
   return axios
     .get(url)
@@ -81,7 +82,7 @@ export const createExhibit = (data, push) => (dispatch) => {
   dispatch(loadingExhibits());
 
   return axios
-    .post('http://localhost:3000/api/exhibits', data)
+    .post(`${base_url}/exhibits`, data)
     .then((res) => {
       dispatch(createExhibitSuccess(res.data.result));
       push('/exhibits');

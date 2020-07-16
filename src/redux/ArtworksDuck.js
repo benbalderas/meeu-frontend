@@ -1,4 +1,5 @@
 import axios from 'axios';
+import base_url from 'constants/route';
 import { normalizeData } from 'helpers/formatters';
 
 const LOADING = 'meeuapp/artworks/LOADING';
@@ -64,7 +65,7 @@ export const fetchArtworks = () => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .get('http://localhost:3000/api/artworks')
+    .get(`${base_url}/artworks`)
     .then((res) => {
       const items = normalizeData(res.data.result);
 
@@ -79,7 +80,7 @@ export const createArtwork = (data, push) => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .post('http://localhost:3000/api/artworks', data, {
+    .post(`${base_url}/artworks`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

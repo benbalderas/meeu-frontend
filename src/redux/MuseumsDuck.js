@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { normalizeData } from 'helpers/formatters';
+import base_url from 'constants/route';
 
 const LOADING = 'meeuapp/museums/LOADING';
 const GET_MUSEUMS_SUCCESS = 'meeuapp/museums/GET_MUSEUMS_SUCCESS';
@@ -51,8 +52,8 @@ export const getSingleMuseumSuccess = (payload) => ({
 export const fetchMuseums = (adminId) => (dispatch) => {
   dispatch(loadingMuseums());
   const url = adminId
-    ? `http://localhost:3000/api/museums?admin=${adminId}`
-    : 'http://localhost:3000/api/museums';
+    ? `${base_url}/museums?admin=${adminId}`
+    : `${base_url}/museums`;
 
   return axios
     .get(url)
@@ -70,7 +71,7 @@ export const fetchSingleMuseum = (id) => (dispatch) => {
   dispatch(loadingMuseums());
 
   return axios
-    .get(`http://localhost:3000/api/museums/${id}`)
+    .get(`${base_url}/museums/${id}`)
     .then((res) => {
       dispatch(getSingleMuseumSuccess(res.data.result));
     })

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import base_url from 'constants/route';
+
 axios.defaults.withCredentials = true; // needed to set cookies
 
 const LOADING = 'meeuapp/user/LOADING';
@@ -67,7 +69,7 @@ export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post('http://localhost:3000/api/login', credentials)
+    .post(`${base_url}/login`, credentials)
     .then((res) => {
       const user = res.data.user;
 
@@ -83,7 +85,7 @@ export const signup = (data, push) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post('http://localhost:3000/api/signup', data)
+    .post(`${base_url}/signup`, data)
     .then((res) => {
       dispatch(signupSuccess(res.data.result));
 
