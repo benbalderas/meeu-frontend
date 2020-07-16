@@ -21,7 +21,9 @@ function App() {
 
       <div className="App">
         <ConditionalWrapper
-          condition={user}
+          condition={
+            location.pathname !== '/login' && location.pathname !== '/signup'
+          }
           wrapper={(children) => (
             <MainNav screenTitle={getScreenTitle(location.pathname)}>
               {children}
