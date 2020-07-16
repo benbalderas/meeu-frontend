@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchSingleExhibit } from 'redux/ExhibitsDuck';
@@ -14,7 +14,7 @@ import {
   Typography,
   Box,
   Chip,
-  Button,
+  Divider,
 } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     '& > *:not(:first-child)': {
       marginLeft: theme.spacing(1),
     },
+  },
+  divider: {
+    marginBottom: theme.spacing(5),
   },
 }));
 
@@ -56,10 +59,11 @@ export default function ExhibitDetails() {
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="md">
-        <Grid container spacing={4} alignItems="top">
+      <Container maxWidth="xl">
+        <Grid container spacing={2} alignItems="top">
           <Grid item md={6} lg={6} sm={12}>
-            <Typography variant="h4">{exhibit.title}</Typography>
+            {/* TODO: Add museum name */}
+            <Typography variant="h3">{exhibit.title}</Typography>
 
             <Box
               className={classes.metadata}
@@ -86,14 +90,22 @@ export default function ExhibitDetails() {
                 />
               )}
             </Box>
-
-            <Typography variant="body2">{exhibit.description}</Typography>
           </Grid>
 
           <Grid item md={6} lg={6} sm={12}>
-            Artworks
+            <Typography variant="body2">{exhibit.description}</Typography>
           </Grid>
         </Grid>
+
+        <Box mt={5}>
+          <Divider className={classes.divider} />
+
+          <Grid container spacing={3}>
+            {artworks.map((artwork, index) => (
+              <ArtworkCard key={index} {...artwork} />
+            ))}
+          </Grid>
+        </Box>
       </Container>
     </>
   );
