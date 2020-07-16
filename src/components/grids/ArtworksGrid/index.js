@@ -29,7 +29,7 @@ export default function ArtworksGrid() {
       </Box>
 
       {user.role === 'Admin' && (
-        <FloatingAction to="artworks/create" label="Create" />
+        <FloatingAction to="artworks/create" label="Add Art" />
       )}
     </>
   );
