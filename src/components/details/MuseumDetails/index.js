@@ -6,7 +6,7 @@ import { fetchSingleMuseum } from 'redux/MuseumsDuck';
 import { fetchExhibits } from 'redux/ExhibitsDuck';
 import { denormalizeData } from 'helpers/formatters';
 
-import { Container, Grid, Typography, Box } from '@material-ui/core';
+import { Container, Grid, Typography, Box, Button } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
 import ExhibitCard from 'components/cards/ExhibitCard';
@@ -96,9 +96,19 @@ export default function MuseumDetails() {
         </Box>
 
         <Grid container spacing={4}>
-          {denormalizeData(exhibits).map((exhibit, index) => (
-            <ExhibitCard key={index} {...exhibit} />
-          ))}
+          {denormalizeData(exhibits).length > 0 ? (
+            denormalizeData(exhibits).map((exhibit, index) => (
+              <ExhibitCard key={index} {...exhibit} />
+            ))
+          ) : (
+            <Box ml={3} mt={1}>
+              <Typography gutterBottom variant="body1" color="textPrimary">
+                Hmm… looks like this museum has no current exhibitions
+              </Typography>
+
+              <Button variant="outlined">See other museums</Button>
+            </Box>
+          )}
         </Grid>
       </Container>
     </>
