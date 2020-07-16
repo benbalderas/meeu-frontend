@@ -61,11 +61,15 @@ export const createArtworkError = (error) => ({
 });
 
 // Thunk
-export const fetchArtworks = () => (dispatch) => {
+export const fetchArtworks = (exhibitId) => (dispatch) => {
   dispatch(loadingArtworks());
 
+  const url = exhibitId
+    ? `${base_url}/artworks?exhibit=${exhibitId}`
+    : `${base_url}/artworks`;
+
   return axios
-    .get(`${base_url}/artworks`)
+    .get(url)
     .then((res) => {
       const items = normalizeData(res.data.result);
 
