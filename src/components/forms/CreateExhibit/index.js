@@ -15,6 +15,7 @@ import {
   Select,
   MenuItem,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -123,8 +124,19 @@ export default function CreateExhibit() {
               />
             )}
 
-            <Button fullWidth variant="contained" color="primary" type="submit">
-              Create
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={status === 'pending' ? true : false}
+              endIcon={
+                status === 'pending' && (
+                  <CircularProgress size={18} color="secondary" />
+                )
+              }
+            >
+              {status === 'pending' ? 'Creating…' : 'Create'}
             </Button>
           </form>
         </Container>

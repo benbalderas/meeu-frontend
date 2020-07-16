@@ -191,6 +191,13 @@ const theme = createMuiTheme({
         padding: 4,
       },
     },
+    MuiFormHelperText: {
+      root: {
+        marginTop: 8,
+        fontFamily: 'obviously, sans-serif',
+        fontSize: '0.75rem',
+      },
+    },
 
     // Typography
     MuiTypography: {

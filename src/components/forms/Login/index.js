@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { login } from 'redux/UserDuck';
 
 import {
@@ -18,12 +18,10 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-export default function Auth() {
-  const location = useLocation();
+export default function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
   const status = useSelector((state) => state.user.status);
-  const isLogin = location.pathname.includes('login');
 
   // States
   const [credentials, setCredentials] = useState({});
@@ -56,25 +54,12 @@ export default function Auth() {
   return (
     <Box mt={3} mb={5}>
       <Container maxWidth="xs">
-        {isLogin ? (
-          <Typography gutterBottom align="center" variant="h2">
-            Login
-          </Typography>
-        ) : (
-          <Box>
-            <Typography gutterBottom align="center" variant="h2">
-              Create an account
-            </Typography>
-
-            <Typography align="center" variant="body1">
-              Experience top museums in the world. Know all about your favorite
-              art pieces.
-            </Typography>
-          </Box>
-        )}
+        <Typography gutterBottom align="center" variant="h2">
+          Login
+        </Typography>
 
         <form onSubmit={handleSubmit}>
-          {isLogin && status === 'error' && (
+          {status === 'error' && (
             <Typography
               variant="body2"
               color="primary"
@@ -128,7 +113,7 @@ export default function Auth() {
               )
             }
           >
-            {isLogin ? 'Login' : 'Create Account'}
+            Login
           </Button>
         </form>
 
@@ -139,18 +124,12 @@ export default function Auth() {
             align="center"
             display="block"
           >
-            {isLogin ? 'No account yet?' : 'Already have an account?'}
+            No account yet?
           </Typography>
 
-          {isLogin ? (
-            <Button size="small" component={Link} to="/signup">
-              Create an account
-            </Button>
-          ) : (
-            <Button size="small" component={Link} to="/login">
-              Log in instead
-            </Button>
-          )}
+          <Button size="small" component={Link} to="/signup">
+            Create an account
+          </Button>
         </Box>
       </Container>
     </Box>
