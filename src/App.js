@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import 'App.css';
@@ -13,7 +12,6 @@ import Routes from 'Routes';
 
 function App() {
   const location = useLocation();
-  const user = useSelector((state) => state.user.data);
 
   return (
     <ThemeProvider theme={theme}>
