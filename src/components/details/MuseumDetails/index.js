@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory, useParams, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { fetchSingleMuseum } from 'redux/MuseumsDuck';
 import { fetchExhibits } from 'redux/ExhibitsDuck';
 import { denormalizeData } from 'helpers/formatters';
@@ -112,7 +113,9 @@ export default function MuseumDetails() {
                 Hmm… looks like this museum has no current exhibitions
               </Typography>
 
-              <Button variant="outlined">See other museums</Button>
+              <Button variant="outlined" component={Link} to="/museums">
+                See other museums
+              </Button>
             </Box>
           )}
         </Grid>
