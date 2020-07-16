@@ -53,10 +53,10 @@ export default function ExhibitCard({
                 alignItems="center"
               >
                 <Chip
-                  variant="default"
+                  variant="outlined"
                   size="small"
-                  color="primary"
                   label={type}
+                  color={type === 'Temporary' ? "primary" : "default"}
                 />
               </Box>
 

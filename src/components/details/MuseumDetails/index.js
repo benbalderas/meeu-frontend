@@ -1,79 +1,151 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory, useParams, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Container, Grid, Typography, Button, Box } from '@material-ui/core';
+import { fetchSingleMuseum } from 'redux/MuseumsDuck';
+import { fetchExhibits } from 'redux/ExhibitsDuck';
+import { denormalizeData } from 'helpers/formatters';
+
+import { Container, Grid, Typography, Box, Button } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
+import ExhibitCard from 'components/cards/ExhibitCard';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   image: {
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
+    height: 500,
     objectFit: 'cover',
     [theme.breakpoints.down('sm')]: {
       height: 200,
     },
   },
+  countryFlag: {
+    marginTop: 4,
+    marginLeft: 12,
+    width: 24,
+  },
 }));
 
 export default function MuseumDetails() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const { id } = useParams();
 
+  // State selectors
+  const museum = useSelector((state) => state.museums.items);
+  const exhibits = useSelector((state) =>
+    denormalizeData(state.exhibits.items)
+  );
+
+  useEffect(() => {
+    dispatch(fetchSingleMuseum(id));
+    dispatch(fetchExhibits(id));
+  }, [dispatch, id]);
+
+  // Handlers
   const handleBackClick = () => {
     history.goBack();
   };
 
   return (
     <>
-      <NavBar screenTitle={null} onClick={handleBackClick}>
+      <NavBar screenTitle="" onClick={handleBackClick}>
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
       <Container maxWidth="md">
-        <Grid container spacing={3} alignItems="center">
-          <Grid item lg={6} sm={12}>
-            <img
-              className={classes.image}
-              src="https://source.unsplash.com/WR5_Ev_bh-I/608x800"
-              alt="museum"
-            />
+        <Grid container spacing={4} alignItems="center">
+          <Grid item lg={5} sm={12}>
+            {museum.image ? (
+              <img
+                className={classes.image}
+                src={museum.image}
+                alt={museum.name}
+              />
+            ) : (
+              <Skeleton
+                className={classes.image}
+                animation="wave"
+                variant="rect"
+              />
+            )}
           </Grid>
 
-          <Grid item lg={6} sm={12}>
+          <Grid item lg={7} sm={12}>
             <Box mb={3}>
               <Typography gutterBottom variant="h3">
-                Musée du Louvre
+                {museum.name ? (
+                  museum.name
+                ) : (
+                  <Skeleton animation="wave" height={92} />
+                )}
               </Typography>
 
-              <Box display="flex" alignItems="center">
-                <Typography variant="subtitle2" color="textSecondary">
-                  Paris —{' '}
-                </Typography>
+              {museum.city ? (
+                <Box mt={4} display="flex" alignItems="center">
+                  <Typography variant="subtitle2" color="textSecondary">
+                    {museum.city} |
+                  </Typography>
 
-                <Typography variant="subtitle2">
-                  <span role="img" aria-label="france">
-                    &nbsp;🇫🇷
-                  </span>
-                </Typography>
-              </Box>
+                  <Typography variant="subtitle2">
+                    <span role="img">
+                      <img
+                        className={classes.countryFlag}
+                        src={`https://www.countryflags.io/${museum.countryCode}/flat/48.png`}
+                        alt={museum.countryCode}
+                      />
+                    </span>
+                  </Typography>
+                </Box>
+              ) : (
+                <Skeleton animation="wave" />
+              )}
             </Box>
 
             <Typography variant="body2" color="textSecondary">
-              The Louvre, or the Louvre Museum, is the world's largest art
-              museum and a historic monument in Paris, France. A central
-              landmark of the city, it is located on the Right Bank of the Seine
-              in the city's 1st arrondissement. The museum is housed in the
-              Louvre Palace, originally built as the Louvre castle in the late
-              12th to 13th century under Philip II. Remnants of the fortress are
-              visible in the basement of the museum.
+              {museum.description ? (
+                museum.description
+              ) : (
+                <>
+                  <Skeleton
+                    animation="wave"
+                    height={20}
+                    style={{ marginBottom: 6 }}
+                  />
+                  <Skeleton animation="wave" height={20} width="80%" />
+                </>
+              )}
             </Typography>
-
-            <Button fullWidth variant="contained">
-              Experience
-            </Button>
           </Grid>
+        </Grid>
+
+        <Box ml={1} mt={6} mb={2}>
+          <Typography variant="subtitle1" color="textSecondary">
+            Current Exhibitions
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          {exhibits.length > 0 ? (
+            exhibits.map((exhibit, index) => (
+              <ExhibitCard key={index} {...exhibit} />
+            ))
+          ) : (
+            <Box ml={3} mt={1}>
+              <Typography gutterBottom variant="body1" color="textPrimary">
+                Hmm… looks like this museum has no current exhibitions
+              </Typography>
+
+              <Button variant="outlined" component={Link} to="/museums">
+                See other museums
+              </Button>
+            </Box>
+          )}
         </Grid>
       </Container>
     </>
