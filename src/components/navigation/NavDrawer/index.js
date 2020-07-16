@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -161,25 +160,3 @@ export default function NavDrawer({
     </nav>
   );
 }
-
-NavDrawer.propTypes = {
-  userName: PropTypes.string,
-  userAvatar: PropTypes.string,
-  userType: PropTypes.string,
-  open: PropTypes.bool,
-  handleDrawer: PropTypes.func,
-  sections: PropTypes.arrayOf(PropTypes.object),
-};
-
-NavDrawer.defaultProps = {
-  userName: 'User',
-  userAvatar: 'U',
-  userType: 'Influencer',
-  open: false,
-  handleDrawer: () => null,
-  sections: [
-    {
-      name: 'Campaigns',
-    },
-  ],
-};

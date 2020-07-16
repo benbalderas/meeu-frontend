@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { SECTIONS } from 'constants/navigation';
@@ -52,13 +51,3 @@ function MainNav({ children, screenTitle }) {
 }
 
 export default MainNav;
-
-MainNav.propTypes = {
-  children: PropTypes.node,
-  screenTitle: PropTypes.string,
-};
-
-MainNav.defaultProps = {
-  children: <h2>No data to show</h2>,
-  screenTitle: '',
-};

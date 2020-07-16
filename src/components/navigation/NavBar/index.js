@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { DRAWER_WIDTH } from 'constants/navigation';
 
@@ -58,21 +57,5 @@ function NavBar({ onClick, screenTitle, children, isMain, onLogout }) {
     </AppBar>
   );
 }
-
-NavBar.propTypes = {
-  onLogout: PropTypes.func,
-  handleIconClick: PropTypes.func,
-  screenTitle: PropTypes.string,
-  children: PropTypes.node,
-  isMain: PropTypes.bool,
-};
-
-NavBar.defaultProps = {
-  onLogout: () => {},
-  handleIconClick: () => null,
-  screenTitle: '',
-  children: <></>,
-  isMain: false,
-};
 
 export default NavBar;
