@@ -96,7 +96,7 @@ export const createExhibit = (data, push) => (dispatch) => {
   dispatch(loadingExhibits());
 
   return axios
-    .post(`${base_url}/exhibits/create`, data)
+    .post(`${base_url}/exhibits`, data)
     .then((res) => {
       dispatch(createExhibitSuccess(res.data.result));
       push('/exhibits');
