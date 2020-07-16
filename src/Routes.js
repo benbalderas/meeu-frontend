@@ -4,7 +4,7 @@ import MuseumGrid from 'components/grids/MuseumGrid';
 import ExhibitsGrid from 'components/grids/ExhibitsGrid';
 import ArtworksGrid from 'components/grids/ArtworksGrid';
 import MuseumDetails from 'components/details/MuseumDetails';
-import Auth from 'components/forms/Auth';
+import Auth from 'components/forms/Login';
 import CreateExhibit from 'components/forms/CreateExhibit';
 import CreateArtwork from 'components/forms/CreateArtwork';
 

@@ -90,10 +90,3 @@ export const createExhibit = (data, push) => (dispatch) => {
       dispatch(createExhibitError(err));
     });
 };
-
-// Headers config
-// {
-    // headers: {
-    //   'Content-Type': 'multipart/form-data',
-    // },
-// }
