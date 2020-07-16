@@ -34,7 +34,9 @@ export default function MuseumDetails() {
   const classes = useStyles();
   const { id } = useParams();
   const museum = useSelector((state) => state.museums.items);
-  const exhibits = useSelector((state) => state.exhibits.items);
+  const exhibits = useSelector((state) =>
+    denormalizeData(state.exhibits.items)
+  );
 
   useEffect(() => {
     dispatch(fetchSingleMuseum(id));
@@ -96,8 +98,8 @@ export default function MuseumDetails() {
         </Box>
 
         <Grid container spacing={4}>
-          {denormalizeData(exhibits).length > 0 ? (
-            denormalizeData(exhibits).map((exhibit, index) => (
+          {exhibits.length > 0 ? (
+            exhibits.map((exhibit, index) => (
               <ExhibitCard key={index} {...exhibit} />
             ))
           ) : (
