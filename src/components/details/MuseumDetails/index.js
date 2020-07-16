@@ -11,6 +11,7 @@ import { Container, Grid, Typography, Box, Button } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
 import ExhibitCard from 'components/cards/ExhibitCard';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -60,38 +61,65 @@ export default function MuseumDetails() {
       <Container maxWidth="md">
         <Grid container spacing={4} alignItems="center">
           <Grid item lg={5} sm={12}>
-            <img
-              className={classes.image}
-              src={museum.image}
-              alt={museum.name}
-            />
+            {museum.image ? (
+              <img
+                className={classes.image}
+                src={museum.image}
+                alt={museum.name}
+              />
+            ) : (
+              <Skeleton
+                className={classes.image}
+                animation="wave"
+                variant="rect"
+              />
+            )}
           </Grid>
 
           <Grid item lg={7} sm={12}>
             <Box mb={3}>
               <Typography gutterBottom variant="h3">
-                {museum.name}
+                {museum.name ? (
+                  museum.name
+                ) : (
+                  <Skeleton animation="wave" height={92} />
+                )}
               </Typography>
 
-              <Box mt={4} display="flex" alignItems="center">
-                <Typography variant="subtitle2" color="textSecondary">
-                  {museum.city} |
-                </Typography>
+              {museum.city ? (
+                <Box mt={4} display="flex" alignItems="center">
+                  <Typography variant="subtitle2" color="textSecondary">
+                    {museum.city} |
+                  </Typography>
 
-                <Typography variant="subtitle2">
-                  <span role="img">
-                    <img
-                      className={classes.countryFlag}
-                      src={`https://www.countryflags.io/${museum.countryCode}/flat/48.png`}
-                      alt={museum.countryCode}
-                    />
-                  </span>
-                </Typography>
-              </Box>
+                  <Typography variant="subtitle2">
+                    <span role="img">
+                      <img
+                        className={classes.countryFlag}
+                        src={`https://www.countryflags.io/${museum.countryCode}/flat/48.png`}
+                        alt={museum.countryCode}
+                      />
+                    </span>
+                  </Typography>
+                </Box>
+              ) : (
+                <Skeleton animation="wave" />
+              )}
             </Box>
 
             <Typography variant="body2" color="textSecondary">
-              {museum.description}
+              {museum.description ? (
+                museum.description
+              ) : (
+                <>
+                  <Skeleton
+                    animation="wave"
+                    height={20}
+                    style={{ marginBottom: 6 }}
+                  />
+                  <Skeleton animation="wave" height={20} width="80%" />
+                </>
+              )}
             </Typography>
           </Grid>
         </Grid>
