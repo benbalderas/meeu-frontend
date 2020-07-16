@@ -70,6 +70,9 @@ const theme = createMuiTheme({
     body2: {
       lineHeight: 2,
     },
+    body1: {
+      lineHeight: 2,
+    },
     caption: {
       fontFamily: 'Vulf Mono',
       fontWeight: 300,
