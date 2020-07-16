@@ -21,13 +21,15 @@ export default function reducer(state = intialState, action) {
     case GET_ARTWORKS_SUCCESS:
       return { ...state, status: 'success', items: { ...action.payload } };
     case GET_ARTWORKS_ERROR:
-      return { ...state, status: 'error', items: action.error };
+      return { status: 'error', error: action.error };
     case CREATE_ARTWORK_SUCCESS:
       return {
         ...state,
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
+    case CREATE_ARTWORK_ERROR:
+      return { status: 'error', error: action.error };
     default:
       return state;
   }
@@ -62,7 +64,7 @@ export const fetchArtworks = () => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .get('http://localhost:3000/artworks')
+    .get('http://localhost:3000/api/artworks')
     .then((res) => {
       const items = normalizeData(res.data.result);
 
@@ -77,7 +79,7 @@ export const createArtwork = (data, push) => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .post('http://localhost:3000/artworks', data, {
+    .post('http://localhost:3000/api/artworks', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

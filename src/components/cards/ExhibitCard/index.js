@@ -32,7 +32,6 @@ export default function ExhibitCard({
   title,
   type,
   description,
-  artworks,
 }) {
   const classes = useStyles();
 
@@ -58,12 +57,6 @@ export default function ExhibitCard({
                   size="small"
                   color="primary"
                   label={type}
-                />
-
-                <Chip
-                  variant="default"
-                  size="small"
-                  label={`${artworks.length} artworks`}
                 />
               </Box>
 
