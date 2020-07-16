@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-export default function MuseumCard({ _id, image, name, city, countryCode }) {
+export default function MuseumCard({ _id, image, name, city, countryCode, ...rest }) {
   return (
     <Grid item xs={6} sm={6} md={4} lg={3}>
       <Card elevation={0}>
