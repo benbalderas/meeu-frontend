@@ -13,6 +13,7 @@ import ArtworksGrid from 'components/grids/ArtworksGrid';
 // Details
 import MuseumDetails from 'components/details/MuseumDetails';
 import ExhibitDetails from 'components/details/ExhibitDetails';
+import ArtworkDetails from 'components/details/ArtworkDetails';
 
 // Create
 import CreateExhibit from 'components/forms/CreateExhibit';
@@ -29,6 +30,7 @@ const Routes = () => (
 
     <Route exact path="/museums/:id" component={() => <MuseumDetails />} />
     <Route exact path="/exhibits/:id" component={() => <ExhibitDetails />} />
+    <Route exact path="/artworks/:id" component={() => <ArtworkDetails />} />
 
     <Route exact path="/exhibits/create" component={() => <CreateExhibit />} />
     <Route exact path="/artworks/create" component={() => <CreateArtwork />} />

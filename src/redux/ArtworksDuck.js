@@ -6,6 +6,9 @@ const LOADING = 'meeuapp/artworks/LOADING';
 const GET_ARTWORKS_SUCCESS = 'meeuapp/artworks/GET_ARTWORKS_SUCCESS';
 const GET_ARTWORKS_ERROR = 'meeuapp/artworks/GET_ARTWORKS_ERROR';
 
+const GET_SINGLE_ARTWORK_SUCCESS =
+  'meeuapp/artworks/GET_SINGLE_ARTWORK_SUCCESS';
+
 const CREATE_ARTWORK_SUCCESS = 'meeuapp/artworks/CREATE_ARTWORK_SUCCESS';
 const CREATE_ARTWORK_ERROR = 'meeuapp/artworks/CREATE_ARTWORK_ERROR';
 
@@ -29,6 +32,8 @@ export default function reducer(state = intialState, action) {
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
+    case GET_SINGLE_ARTWORK_SUCCESS:
+      return { ...state, status: 'success', items: { ...action.payload } };
     case CREATE_ARTWORK_ERROR:
       return { status: 'error', error: action.error };
     default:
@@ -58,6 +63,11 @@ export const createArtworkSuccess = (payload) => ({
 export const createArtworkError = (error) => ({
   type: CREATE_ARTWORK_ERROR,
   error,
+});
+
+export const getSingleArtworkSuccess = (payload) => ({
+  type: GET_SINGLE_ARTWORK_SUCCESS,
+  payload,
 });
 
 // Thunk
@@ -95,5 +105,18 @@ export const createArtwork = (data, push) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(createArtworkError(err));
+    });
+};
+
+export const fetchSingleArtwork = (id) => (dispatch) => {
+  dispatch(loadingArtworks());
+
+  return axios
+    .get(`${base_url}/artworks/${id}`)
+    .then((res) => {
+      dispatch(getSingleArtworkSuccess(res.data.result));
+    })
+    .catch((err) => {
+      dispatch(getArtworksError(err));
     });
 };
