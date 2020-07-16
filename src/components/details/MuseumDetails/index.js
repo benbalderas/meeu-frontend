@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
       height: 200,
     },
   },
+  countryFlag: {
+    marginTop: 4,
+    marginLeft: 12,
+    width: 24,
+  },
 }));
 
 export default function MuseumDetails() {
@@ -62,14 +67,17 @@ export default function MuseumDetails() {
                 {museum.name}
               </Typography>
 
-              <Box display="flex" alignItems="center">
+              <Box mt={4} display="flex" alignItems="center">
                 <Typography variant="subtitle2" color="textSecondary">
-                  {museum.city} —{' '}
+                  {museum.city} |
                 </Typography>
 
                 <Typography variant="subtitle2">
-                  <span role="img" aria-label="france">
-                    &nbsp;🇫🇷
+                  <span role="img">
+                    <img
+                      className={classes.countryFlag}
+                      src={`https://www.countryflags.io/${museum.countryCode}/flat/48.png`}
+                    />
                   </span>
                 </Typography>
               </Box>
@@ -81,7 +89,7 @@ export default function MuseumDetails() {
           </Grid>
         </Grid>
 
-        <Box mt={6} mb={2}>
+        <Box ml={1} mt={6} mb={2}>
           <Typography variant="subtitle1" color="textSecondary">
             Current Exhibitions
           </Typography>
