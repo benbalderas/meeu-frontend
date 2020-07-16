@@ -58,7 +58,7 @@ export default function MuseumDetails() {
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
           <Grid item lg={5} sm={12}>
             {museum.image ? (
@@ -76,7 +76,7 @@ export default function MuseumDetails() {
             )}
           </Grid>
 
-          <Grid item lg={7} sm={12}>
+          <Grid item lg={6} sm={12}>
             <Box mb={3}>
               <Typography gutterBottom variant="h3">
                 {museum.name ? (
