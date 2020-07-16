@@ -3,6 +3,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { fetchSingleMuseum } from 'redux/MuseumsDuck';
+import { fetchExhibits } from 'redux/ExhibitsDuck';
+import { denormalizeData } from 'helpers/formatters';
 
 import { Container, Grid, Typography, Box } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
-    height: 600,
+    height: 500,
     objectFit: 'cover',
     [theme.breakpoints.down('sm')]: {
       height: 200,
@@ -27,9 +29,11 @@ export default function MuseumDetails() {
   const classes = useStyles();
   const { id } = useParams();
   const museum = useSelector((state) => state.museums.items);
+  const exhibits = useSelector((state) => state.exhibits.items);
 
   useEffect(() => {
     dispatch(fetchSingleMuseum(id));
+    dispatch(fetchExhibits(id));
   }, [dispatch, id]);
 
   const handleBackClick = () => {
@@ -42,9 +46,9 @@ export default function MuseumDetails() {
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="xl">
-        <Grid container spacing={3} alignItems="center">
-          <Grid item lg={4} sm={12}>
+      <Container maxWidth="md">
+        <Grid container spacing={4} alignItems="center">
+          <Grid item lg={5} sm={12}>
             <img
               className={classes.image}
               src={museum.image}
@@ -52,7 +56,7 @@ export default function MuseumDetails() {
             />
           </Grid>
 
-          <Grid item lg={4} sm={12}>
+          <Grid item lg={7} sm={12}>
             <Box mb={3}>
               <Typography gutterBottom variant="h3">
                 {museum.name}
@@ -75,8 +79,18 @@ export default function MuseumDetails() {
               {museum.description}
             </Typography>
           </Grid>
+        </Grid>
 
-          <Grid item lg={4} sm={12}></Grid>
+        <Box mt={6} mb={2}>
+          <Typography variant="subtitle1" color="textSecondary">
+            Current Exhibitions
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          {denormalizeData(exhibits).map((exhibit, index) => (
+            <ExhibitCard key={index} {...exhibit} />
+          ))}
         </Grid>
       </Container>
     </>
