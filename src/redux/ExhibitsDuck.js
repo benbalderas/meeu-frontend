@@ -75,6 +75,7 @@ export const getSingleExhibitSuccess = (payload) => ({
 // Thunks
 export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
+  
   const url = museumId
     ? `${base_url}/exhibits?museum=${museumId}`
     : `${base_url}/exhibits`;
@@ -95,7 +96,7 @@ export const createExhibit = (data, push) => (dispatch) => {
   dispatch(loadingExhibits());
 
   return axios
-    .post(`${base_url}/exhibits`, data)
+    .post(`${base_url}/exhibits/create`, data)
     .then((res) => {
       dispatch(createExhibitSuccess(res.data.result));
       push('/exhibits');

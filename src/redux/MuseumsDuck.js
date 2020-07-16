@@ -51,6 +51,7 @@ export const getSingleMuseumSuccess = (payload) => ({
 // Thunk
 export const fetchMuseums = (adminId) => (dispatch) => {
   dispatch(loadingMuseums());
+  
   const url = adminId
     ? `${base_url}/museums?admin=${adminId}`
     : `${base_url}/museums`;
