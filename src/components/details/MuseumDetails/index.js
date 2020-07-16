@@ -33,6 +33,8 @@ export default function MuseumDetails() {
   const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
+
+  // State selectors
   const museum = useSelector((state) => state.museums.items);
   const exhibits = useSelector((state) =>
     denormalizeData(state.exhibits.items)
@@ -43,6 +45,7 @@ export default function MuseumDetails() {
     dispatch(fetchExhibits(id));
   }, [dispatch, id]);
 
+  // Handlers
   const handleBackClick = () => {
     history.goBack();
   };
@@ -79,6 +82,7 @@ export default function MuseumDetails() {
                     <img
                       className={classes.countryFlag}
                       src={`https://www.countryflags.io/${museum.countryCode}/flat/48.png`}
+                      alt={museum.countryCode}
                     />
                   </span>
                 </Typography>
