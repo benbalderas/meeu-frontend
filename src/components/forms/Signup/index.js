@@ -1,33 +1,41 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { login } from 'redux/UserDuck';
 
 import {
   Container,
   Box,
+  Typography,
   TextField,
   FormControl,
   Input,
   InputLabel,
   InputAdornment,
   IconButton,
-  Typography,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
   Button,
   CircularProgress,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-export default function Login() {
-  const history = useHistory();
+export default function Signup() {
+  const { push } = useHistory();
   const dispatch = useDispatch();
   const status = useSelector((state) => state.user.status);
 
   // States
-  const [credentials, setCredentials] = useState({});
   const [passShow, setPassShow] = useState(false);
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'Visitor',
+    museum: '',
+  });
 
-  // Handlers
   const handleClickShowPassword = () => {
     setPassShow(!passShow);
   };
@@ -40,35 +48,31 @@ export default function Login() {
     const key = event.target.name;
     const value = event.target.value;
 
-    setCredentials((prevState) => ({ ...prevState, [key]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    dispatch(login(credentials)).then(() => {
-      history.push('/museums');
-    });
+    setUser((prevState) => ({ ...prevState, [key]: value }));
   };
 
   return (
     <Box mt={3} mb={5}>
       <Container maxWidth="xs">
         <Typography gutterBottom align="center" variant="h2">
-          Login
+          Create an account
         </Typography>
 
-        <form onSubmit={handleSubmit}>
-          {status === 'error' && (
-            <Typography
-              variant="body2"
-              color="primary"
-              display="block"
-              align="center"
-            >
-              Incorrect credentials
-            </Typography>
-          )}
+        <Typography align="center" variant="body1">
+          Experience top museums in the world. Know all about your favorite art
+          pieces.
+        </Typography>
+
+        <form>
+          <TextField
+            fullWidth
+            name="name"
+            id="name"
+            label="Full Name"
+            type="text"
+            required
+            onChange={handleChange}
+          />
 
           <TextField
             fullWidth
@@ -101,6 +105,37 @@ export default function Login() {
             />
           </FormControl>
 
+          <Box mt={3}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">What do you want to do?</FormLabel>
+
+              <RadioGroup name="role" onChange={handleChange} value={user.role}>
+                <FormControlLabel
+                  value="Visitor"
+                  control={<Radio />}
+                  label="I want to experience museums"
+                />
+                <FormControlLabel
+                  value="Admin"
+                  control={<Radio />}
+                  label="I'm a museum admin"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Box>
+
+          {user.role === 'Admin' && (
+            <TextField
+              fullWidth
+              name="museum"
+              id="museum"
+              label="Museum where you work"
+              type="text"
+              onChange={handleChange}
+              helperText="We will get in touch to verify this"
+            />
+          )}
+
           <Button
             fullWidth
             variant="contained"
@@ -113,7 +148,7 @@ export default function Login() {
               )
             }
           >
-            Login
+            Create account
           </Button>
         </form>
 
@@ -124,11 +159,11 @@ export default function Login() {
             align="center"
             display="block"
           >
-            No account yet?
+            Already a member?
           </Typography>
 
-          <Button size="small" component={Link} to="/signup">
-            Create an account
+          <Button size="small" component={Link} to="/login">
+            Log in here
           </Button>
         </Box>
       </Container>
