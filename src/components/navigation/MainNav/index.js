@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavDrawer from 'components/navigation/NavDrawer';
 import NavBar from 'components/navigation/NavBar';
+import DefaultAvatar from 'images/default-avatar.png';
 
 const useStyles = makeStyles((theme) => ({
   // necessary for content to be below app bar
@@ -31,9 +32,9 @@ function MainNav({ children, screenTitle }) {
 
       <NavDrawer
         userAvatar={
-          user
+          user.avatar
             ? user.avatar
-            : 'https://cdn.glitch.com/9c389208-b279-4e96-bcbc-e5f8712d8706%2Fplaceholder-landscape-med.png'
+            : DefaultAvatar
         }
         userName={user ? user.name : 'Name'}
         userType={user ? user.role : ''}
