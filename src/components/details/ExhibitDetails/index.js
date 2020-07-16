@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -55,14 +56,15 @@ export default function ExhibitDetails() {
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="lg">
-        <Grid container spacing={4} alignItems="center">
+      <Container maxWidth="md">
+        <Grid container spacing={4} alignItems="top">
           <Grid item md={6} lg={6} sm={12}>
             <Typography variant="h4">{exhibit.title}</Typography>
 
             <Box
               className={classes.metadata}
-              mt={3}
+              mt={4}
+              mb={3}
               display="flex"
               alignItems="center"
             >
@@ -72,10 +74,20 @@ export default function ExhibitDetails() {
                 label={exhibit.type}
                 color={exhibit.type === 'Temporary' ? 'primary' : 'default'}
               />
-              <Chip variant="outlined" size="small" label={exhibit.endDate} />
+
+              {exhibit.endDate && (
+                <Chip
+                  variant="outlined"
+                  size="small"
+                  label={format(
+                    new Date(exhibit.endDate.toString()),
+                    'MM/dd/yyy'
+                  )}
+                />
+              )}
             </Box>
 
-            <Typography variant="body2">Description</Typography>
+            <Typography variant="body2">{exhibit.description}</Typography>
           </Grid>
 
           <Grid item md={6} lg={6} sm={12}>
