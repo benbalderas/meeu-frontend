@@ -6,6 +6,9 @@ const LOADING = 'meeuapp/exhibits/LOADING';
 const GET_EXHIBITS_SUCCESS = 'meeuapp/exhibits/GET_EXHIBITS_SUCCESS';
 const GET_EXHIBITS_ERROR = 'meeuapp/exhibits/GET_EXHIBITS_ERROR';
 
+const GET_SINGLE_EXHIBIT_SUCCESS =
+  'meeuapp/exhibits/GET_SINGLE_EXHIBIT_SUCCESS';
+
 const CREATE_EXHIBIT_SUCCESS = 'meeuapp/exhibits/CREATE_EXHIBIT_SUCCESS';
 const CREATE_EXHIBIT_ERROR = 'meeuapp/exhibits/CREATE_EXHIBIT_ERROR';
 
@@ -15,6 +18,7 @@ const intialState = {
   error: undefined,
 };
 
+// Action creators
 export default function reducer(state = intialState, action) {
   switch (action.type) {
     case LOADING:
@@ -29,6 +33,8 @@ export default function reducer(state = intialState, action) {
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
+    case GET_SINGLE_EXHIBIT_SUCCESS:
+      return { ...state, status: 'success', items: { ...action.payload } };
     case CREATE_EXHIBIT_ERROR:
       return { status: 'error', error: action.error };
     default:
@@ -36,6 +42,7 @@ export default function reducer(state = intialState, action) {
   }
 }
 
+// Actions
 export const loadingExhibits = () => ({
   type: LOADING,
 });
@@ -60,6 +67,12 @@ export const createExhibitError = (error) => ({
   error,
 });
 
+export const getSingleExhibitSuccess = (payload) => ({
+  type: GET_SINGLE_EXHIBIT_SUCCESS,
+  payload,
+});
+
+// Thunks
 export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
   const url = museumId
@@ -89,5 +102,18 @@ export const createExhibit = (data, push) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(createExhibitError(err));
+    });
+};
+
+export const fetchSingleExhibit = (id) => (dispatch) => {
+  dispatch(loadingExhibits());
+
+  return axios
+    .get(`${base_url}/exhibits/${id}`)
+    .then((res) => {
+      dispatch(getSingleExhibitSuccess(res.data.result));
+    })
+    .catch((err) => {
+      dispatch(getExhibitsError(err));
     });
 };
