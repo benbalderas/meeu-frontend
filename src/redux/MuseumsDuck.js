@@ -5,6 +5,8 @@ const LOADING = 'meeuapp/museums/LOADING';
 const GET_MUSEUMS_SUCCESS = 'meeuapp/museums/GET_MUSEUMS_SUCCESS';
 const GET_MUSEUMS_ERROR = 'meeuapp/museums/GET_MUSEUMS_ERROR';
 
+const GET_SINGLE_MUSEUM_SUCCESS = 'meeuapp/museums/GET_SINGLE_MUSEUM_SUCCESS';
+
 const intialState = {
   items: { _id: '' },
   status: '',
@@ -19,6 +21,8 @@ export default function reducer(state = intialState, action) {
       return { ...state, status: 'success', items: { ...action.payload } };
     case GET_MUSEUMS_ERROR:
       return { ...state, status: 'error', items: action.error };
+    case GET_SINGLE_MUSEUM_SUCCESS:
+      return { ...state, status: 'success', items: { ...action.payload } };
     default:
       return state;
   }
@@ -38,6 +42,11 @@ export const getMuseumsError = (error) => ({
   error,
 });
 
+export const getSingleMuseumSuccess = (payload) => ({
+  type: GET_SINGLE_MUSEUM_SUCCESS,
+  payload,
+});
+
 // Thunk
 export const fetchMuseums = (adminId) => (dispatch) => {
   dispatch(loadingMuseums());
@@ -51,6 +60,19 @@ export const fetchMuseums = (adminId) => (dispatch) => {
       const items = normalizeData(res.data.result);
 
       dispatch(getMuseumsSuccess(items));
+    })
+    .catch((err) => {
+      dispatch(getMuseumsError(err));
+    });
+};
+
+export const fetchSingleMuseum = (id) => (dispatch) => {
+  dispatch(loadingMuseums());
+
+  return axios
+    .get(`http://localhost:3000/api/museums/${id}`)
+    .then((res) => {
+      dispatch(getSingleMuseumSuccess(res.data.result));
     })
     .catch((err) => {
       dispatch(getMuseumsError(err));

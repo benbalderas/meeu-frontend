@@ -1,15 +1,19 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { fetchSingleMuseum } from 'redux/MuseumsDuck';
 
-import { Container, Grid, Typography, Button, Box } from '@material-ui/core';
+import { Container, Grid, Typography, Box } from '@material-ui/core';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
+import ExhibitCard from 'components/cards/ExhibitCard';
 
 const useStyles = makeStyles((theme) => ({
   image: {
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
+    height: 600,
     objectFit: 'cover',
     [theme.breakpoints.down('sm')]: {
       height: 200,
@@ -18,8 +22,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MuseumDetails() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const { id } = useParams();
+  const museum = useSelector((state) => state.museums.items);
+
+  useEffect(() => {
+    dispatch(fetchSingleMuseum(id));
+  }, [dispatch, id]);
 
   const handleBackClick = () => {
     history.goBack();
@@ -27,29 +38,29 @@ export default function MuseumDetails() {
 
   return (
     <>
-      <NavBar screenTitle={null} onClick={handleBackClick}>
+      <NavBar screenTitle="" onClick={handleBackClick}>
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Grid container spacing={3} alignItems="center">
-          <Grid item lg={6} sm={12}>
+          <Grid item lg={4} sm={12}>
             <img
               className={classes.image}
-              src="https://source.unsplash.com/WR5_Ev_bh-I/608x800"
-              alt="museum"
+              src={museum.image}
+              alt={museum.name}
             />
           </Grid>
 
-          <Grid item lg={6} sm={12}>
+          <Grid item lg={4} sm={12}>
             <Box mb={3}>
               <Typography gutterBottom variant="h3">
-                Musée du Louvre
+                {museum.name}
               </Typography>
 
               <Box display="flex" alignItems="center">
                 <Typography variant="subtitle2" color="textSecondary">
-                  Paris —{' '}
+                  {museum.city} —{' '}
                 </Typography>
 
                 <Typography variant="subtitle2">
@@ -61,19 +72,11 @@ export default function MuseumDetails() {
             </Box>
 
             <Typography variant="body2" color="textSecondary">
-              The Louvre, or the Louvre Museum, is the world's largest art
-              museum and a historic monument in Paris, France. A central
-              landmark of the city, it is located on the Right Bank of the Seine
-              in the city's 1st arrondissement. The museum is housed in the
-              Louvre Palace, originally built as the Louvre castle in the late
-              12th to 13th century under Philip II. Remnants of the fortress are
-              visible in the basement of the museum.
+              {museum.description}
             </Typography>
-
-            <Button fullWidth variant="contained">
-              Experience
-            </Button>
           </Grid>
+
+          <Grid item lg={4} sm={12}></Grid>
         </Grid>
       </Container>
     </>
