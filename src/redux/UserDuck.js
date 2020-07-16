@@ -26,11 +26,7 @@ export default function reducer(state = initialState, action) {
     case LOGOUT:
       return { ...state, data: localStorage.clear() };
     case SIGNUP_SUCCESS:
-      return {
-        ...state,
-        status: 'success',
-        items: { ...state.items, [action.payload._id]: action.payload },
-      };
+      return { status: 'success', data: { ...action.payload } };
     case SIGNUP_ERROR:
       return { status: 'error', error: action.error };
     default:

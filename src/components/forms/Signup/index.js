@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { signup } from 'redux/UserDuck';
 
 import {
   Container,
@@ -51,6 +52,12 @@ export default function Signup() {
     setUser((prevState) => ({ ...prevState, [key]: value }));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    dispatch(signup(user, push));
+  };
+
   return (
     <Box mt={3} mb={5}>
       <Container maxWidth="xs">
@@ -63,7 +70,7 @@ export default function Signup() {
           pieces.
         </Typography>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
             name="name"
@@ -131,6 +138,7 @@ export default function Signup() {
               id="museum"
               label="Museum where you work"
               type="text"
+              required
               onChange={handleChange}
               helperText="We will get in touch to verify this"
             />
