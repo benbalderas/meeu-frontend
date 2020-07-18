@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'cover',
   },
   container: {
-    marginLeft: -16,
+    marginLeft: -24,
   },
 }));
 
@@ -72,17 +72,19 @@ export default function ArtworkDetails() {
           {infoBits.shift()}
         </Typography>
 
+        <Box mt={8}>
+          <Typography variant="subtitle1" color="textSecondary">
+            Shoking facts
+          </Typography>
+        </Box>
+
         <Container className={classes.container} maxWidth="sm">
           <Box mt={4}>
             <SwipeableViews
               enableMouseEvents
               style={{ overflow: 'visible' }}
-              slideStyle={{ marginRight: 24 }}
+              slideStyle={{ marginRight: 16 }}
             >
-              {/* <InfoBit text={infoBits[0]} />
-              <InfoBit text={infoBits[1]} />
-              <InfoBit text={infoBits[2]} />
-              <InfoBit text={infoBits[3]} /> */}
               {infoBits.map((bit, index) => (
                 <InfoBit text={bit} index={index} />
               ))}
