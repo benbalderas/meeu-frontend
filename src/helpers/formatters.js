@@ -7,3 +7,7 @@ export const normalizeData = (arr) => {
 export const denormalizeData = (obj) => {
   return Object.values(obj);
 };
+
+export const splitSentences = (str) => {
+  return str.replace(/([.?!])\s*(?=[A-Z])/g, '$1|').split('|');
+};
