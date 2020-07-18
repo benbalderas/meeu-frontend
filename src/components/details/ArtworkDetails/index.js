@@ -6,26 +6,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchSingleArtwork } from 'redux/ArtworksDuck';
 import { splitSentences } from 'helpers/formatters';
 
-import {
-  Container,
-  Box,
-  Typography,
-  Card,
-  CardContent,
-} from '@material-ui/core';
+import { Container, Box, Typography } from '@material-ui/core';
+import SwipeableViews from 'react-swipeable-views';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
+import InfoBit from 'components/cards/InfoBit';
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    overflowX: 'hidden',
+  },
   image: {
     borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
     objectFit: 'cover',
   },
-  infoBit: {
-    background: '#1e1e1e !important',
-    maxWidth: 375,
-    paddingBottom: 8,
+  container: {
+    marginLeft: -16,
   },
 }));
 
@@ -49,7 +46,7 @@ export default function ArtworkDetails() {
   };
 
   return (
-    <>
+    <div className={classes.main}>
       <NavBar screenTitle="" onClick={handleBackClick}>
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
@@ -75,18 +72,24 @@ export default function ArtworkDetails() {
           {infoBits.shift()}
         </Typography>
 
-        <Typography variant="body1" color="textSecondary">
-          <Box>
-            {infoBits.map((bit) => (
-              <Card className={classes.infoBit} elevation={0}>
-                <CardContent>
-                  <Typography variant="body2">{bit}</Typography>
-                </CardContent>
-              </Card>
-            ))}
+        <Container className={classes.container} maxWidth="sm">
+          <Box mt={4}>
+            <SwipeableViews
+              enableMouseEvents
+              style={{ overflow: 'visible' }}
+              slideStyle={{ marginRight: 24 }}
+            >
+              {/* <InfoBit text={infoBits[0]} />
+              <InfoBit text={infoBits[1]} />
+              <InfoBit text={infoBits[2]} />
+              <InfoBit text={infoBits[3]} /> */}
+              {infoBits.map((bit, index) => (
+                <InfoBit text={bit} index={index} />
+              ))}
+            </SwipeableViews>
           </Box>
-        </Typography>
+        </Container>
       </Container>
-    </>
+    </div>
   );
 }
