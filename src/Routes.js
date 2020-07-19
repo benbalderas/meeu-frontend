@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from 'components/wrappers/PrivateRoute';
+import AdminRoute from 'components/wrappers/AdminRoute';
 
 // Landing
 import Login from 'components/forms/Login';
@@ -29,8 +30,16 @@ const Routes = () => (
     <PrivateRoute exact path="/exhibits" component={() => <ExhibitsGrid />} />
     <PrivateRoute exact path="/artworks" component={() => <ArtworksGrid />} />
 
-    <Route exact path="/exhibits/create" component={() => <CreateExhibit />} />
-    <Route exact path="/artworks/create" component={() => <CreateArtwork />} />
+    <AdminRoute
+      exact
+      path="/exhibits/create"
+      component={() => <CreateExhibit />}
+    />
+    <AdminRoute
+      exact
+      path="/artworks/create"
+      component={() => <CreateArtwork />}
+    />
 
     <PrivateRoute
       exact
