@@ -16,7 +16,7 @@ export default function MuseumCard({ _id, image, name, city, countryCode }) {
       <Card elevation={0}>
         <CardActionArea>
           <Link to={`/museums/${_id}`}>
-            <CardMedia image={image} title={name} />
+            <CardMedia image={image} title={name} src="" />
 
             <CardContent>
               <Typography variant="subtitle1" component="h2">

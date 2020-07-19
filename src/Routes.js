@@ -20,6 +20,7 @@ import CreateArtwork from 'components/forms/CreateArtwork';
 import MuseumDetails from 'components/details/MuseumDetails';
 import ExhibitDetails from 'components/details/ExhibitDetails';
 import ArtworkDetails from 'components/details/ArtworkDetails';
+import UserDetails from 'components/details/UserDetails';
 
 const Routes = () => (
   <Switch>
@@ -56,6 +57,7 @@ const Routes = () => (
       path="/artworks/:id"
       component={() => <ArtworkDetails />}
     />
+    <PrivateRoute exact path="/settings" component={() => <UserDetails />} />
   </Switch>
 );
 

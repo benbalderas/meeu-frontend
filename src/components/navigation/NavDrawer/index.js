@@ -60,6 +60,7 @@ export default function NavDrawer({
 
   const handleClose = () => {
     setAnchorEl(null);
+    history.push('/settings');
   };
 
   const handleLogout = () => {
