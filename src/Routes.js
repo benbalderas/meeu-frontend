@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from 'components/wrappers/PrivateRoute';
 
 // Landing
 import Login from 'components/forms/Login';
@@ -24,16 +25,28 @@ const Routes = () => (
     <Route exact path="/login" component={() => <Login />} />
     <Route exact path="/signup" component={() => <Signup />} />
 
-    <Route exact path="/museums" component={() => <MuseumGrid />} />
-    <Route exact path="/exhibits" component={() => <ExhibitsGrid />} />
-    <Route exact path="/artworks" component={() => <ArtworksGrid />} />
+    <PrivateRoute exact path="/museums" component={() => <MuseumGrid />} />
+    <PrivateRoute exact path="/exhibits" component={() => <ExhibitsGrid />} />
+    <PrivateRoute exact path="/artworks" component={() => <ArtworksGrid />} />
 
     <Route exact path="/exhibits/create" component={() => <CreateExhibit />} />
     <Route exact path="/artworks/create" component={() => <CreateArtwork />} />
 
-    <Route exact path="/museums/:id" component={() => <MuseumDetails />} />
-    <Route exact path="/exhibits/:id" component={() => <ExhibitDetails />} />
-    <Route exact path="/artworks/:id" component={() => <ArtworkDetails />} />
+    <PrivateRoute
+      exact
+      path="/museums/:id"
+      component={() => <MuseumDetails />}
+    />
+    <PrivateRoute
+      exact
+      path="/exhibits/:id"
+      component={() => <ExhibitDetails />}
+    />
+    <PrivateRoute
+      exact
+      path="/artworks/:id"
+      component={() => <ArtworkDetails />}
+    />
   </Switch>
 );
 

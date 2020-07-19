@@ -1,25 +1,18 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export default function PrivateRoute({ children, ...rest }) {
-  const user = useSelector((state) => state.user);
+export default function PrivateRoute({
+  sessionData,
+  path,
+  component,
+  ...rest
+}) {
+  const user = useSelector((state) => state.user.data);
 
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        user ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  if (user) {
+    return <Route path={path} component={component} {...rest} />;
+  }
+
+  return <Redirect to="/login" {...rest} />;
 }
