@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   snapper: {
     position: 'relative',
-    height: 200,
+    height: 220,
+    overflowX: 'visible',
     overflowY: 'scroll',
     scrollSnapType: 'y mandatory',
     WebkitOverflowScrolling: 'touch',
@@ -28,12 +29,18 @@ const useStyles = makeStyles((theme) => ({
       scrollSnapStop: 'always',
       marginTop: theme.spacing(2),
     },
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: 300,
+    },
   },
   fade: {
     width: '100%',
-    height: 150,
+    height: 120,
     background:
-      'linear-gradient(to top, rgba(18,18,18,0.7) 0%, rgba(18,18,18,0.3) 80%, rgba(18,18,18,0) 100%)',
+      'linear-gradient(to top, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.5) 80%, rgba(18,18,18,0) 100%)',
     position: 'fixed',
     bottom: 0,
     left: 0,
@@ -75,36 +82,40 @@ export default function ArtworkDetails() {
         />
 
         <Box mt={3} mb={3}>
-          <Typography gutterBottom variant="h5">
+          <Typography variant="body2" color="textSecondary">
+            {artwork.year}
+          </Typography>
+
+          <Typography gutterBottom variant="h4">
             {artwork.title}
           </Typography>
 
           <Typography variant="subtitle2" color="primary">
             {artwork.author}
           </Typography>
-
-          <Typography gutterBottom variant="overline">
-            {artwork.year}
-          </Typography>
         </Box>
 
-        <Typography variant="body1" color="textSecondary">
+        <Typography variant="body1" color="textPrimary">
           {infoBits.shift()}
         </Typography>
 
-        <Box mt={8}>
-          <Typography variant="subtitle1" color="textSecondary">
-            Shoking facts
-          </Typography>
-        </Box>
+        {infoBits.length > 1 && (
+          <>
+            <Box mt={8}>
+              <Typography variant="body2" color="textSecondary">
+                Shoking Facts
+              </Typography>
+            </Box>
 
-        <Box className={classes.snapper} mt={2} maxWidth={600}>
-          {infoBits.map((bit, index) => (
-            <InfoBit text={bit} key={index} />
-          ))}
+            <Box className={classes.snapper}>
+              {infoBits.map((bit, index) => (
+                <InfoBit text={bit} key={index} />
+              ))}
 
-          <div className={classes.fade} />
-        </Box>
+              <div className={classes.fade} />
+            </Box>
+          </>
+        )}
       </Container>
     </>
   );
