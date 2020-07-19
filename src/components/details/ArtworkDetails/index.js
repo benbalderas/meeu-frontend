@@ -7,22 +7,38 @@ import { fetchSingleArtwork } from 'redux/ArtworksDuck';
 import { splitSentences } from 'helpers/formatters';
 
 import { Container, Box, Typography } from '@material-ui/core';
-import SwipeableViews from 'react-swipeable-views';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import NavBar from 'components/navigation/NavBar';
 import InfoBit from 'components/cards/InfoBit';
 
 const useStyles = makeStyles((theme) => ({
-  main: {
-    overflowX: 'hidden',
-  },
   image: {
     borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
     objectFit: 'cover',
   },
-  container: {
-    marginLeft: -24,
+  snapper: {
+    position: 'relative',
+    height: 200,
+    overflowY: 'scroll',
+    scrollSnapType: 'y mandatory',
+    WebkitOverflowScrolling: 'touch',
+    '& > *': {
+      scrollSnapAlign: 'start',
+      scrollSnapStop: 'always',
+      marginTop: theme.spacing(2),
+    },
+  },
+  fade: {
+    width: '100%',
+    height: 150,
+    background:
+      'linear-gradient(to top, rgba(18,18,18,0.7) 0%, rgba(18,18,18,0.3) 80%, rgba(18,18,18,0) 100%)',
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    pointerEvents: 'none',
   },
 }));
 
@@ -46,12 +62,12 @@ export default function ArtworkDetails() {
   };
 
   return (
-    <div className={classes.main}>
+    <>
       <NavBar screenTitle="" onClick={handleBackClick}>
         <KeyboardBackspaceOutlinedIcon />
       </NavBar>
 
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <img
           className={classes.image}
           src={artwork.image}
@@ -66,6 +82,10 @@ export default function ArtworkDetails() {
           <Typography variant="subtitle2" color="primary">
             {artwork.author}
           </Typography>
+
+          <Typography gutterBottom variant="overline">
+            {artwork.year}
+          </Typography>
         </Box>
 
         <Typography variant="body1" color="textSecondary">
@@ -78,20 +98,14 @@ export default function ArtworkDetails() {
           </Typography>
         </Box>
 
-        <Container className={classes.container} maxWidth="sm">
-          <Box mt={4}>
-            <SwipeableViews
-              enableMouseEvents
-              style={{ overflow: 'visible' }}
-              slideStyle={{ marginRight: 16 }}
-            >
-              {infoBits.map((bit, index) => (
-                <InfoBit text={bit} index={index} />
-              ))}
-            </SwipeableViews>
-          </Box>
-        </Container>
+        <Box className={classes.snapper} mt={2} maxWidth={600}>
+          {infoBits.map((bit, index) => (
+            <InfoBit text={bit} key={index} />
+          ))}
+
+          <div className={classes.fade} />
+        </Box>
       </Container>
-    </div>
+    </>
   );
 }

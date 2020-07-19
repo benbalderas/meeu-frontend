@@ -5,7 +5,8 @@ import { Typography, Card, CardContent } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   infoBit: {
-    cursor: 'grab',
+    position: 'relative',
+    minWidth: 0,
   },
   bitContent: {
     display: 'flex',
