@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { denormalizeData } from 'helpers/formatters';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMuseums } from 'redux/MuseumsDuck';
-import { useHistory } from 'react-router-dom';
 import { createExhibit } from 'redux/ExhibitsDuck';
 
 import {

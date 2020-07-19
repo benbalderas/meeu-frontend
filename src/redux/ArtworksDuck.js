@@ -32,10 +32,10 @@ export default function reducer(state = intialState, action) {
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
-    case GET_SINGLE_ARTWORK_SUCCESS:
-      return { ...state, status: 'success', items: { ...action.payload } };
     case CREATE_ARTWORK_ERROR:
       return { status: 'error', error: action.error };
+    case GET_SINGLE_ARTWORK_SUCCESS:
+      return { ...state, status: 'success', items: { ...action.payload } };
     default:
       return state;
   }

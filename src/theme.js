@@ -36,6 +36,7 @@ const theme = createMuiTheme({
       fontWeight: 700,
       fontStyle: 'normal',
       textTransform: 'uppercase',
+      fontSize: '2.75rem',
     },
     h4: {
       fontFamily: 'obviously, sans-serif',
