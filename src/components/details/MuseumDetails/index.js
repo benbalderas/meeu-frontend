@@ -14,6 +14,12 @@ import ExhibitCard from 'components/cards/ExhibitCard';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      hyphens: 'manual',
+      fontSize: '2.25rem',
+    },
+  },
   image: {
     borderRadius: theme.shape.borderRadius - 2,
     width: '100%',
@@ -78,7 +84,7 @@ export default function MuseumDetails() {
 
           <Grid item lg={6} sm={12}>
             <Box mb={3}>
-              <Typography gutterBottom variant="h3">
+              <Typography className={classes.title} gutterBottom variant="h3">
                 {museum.name ? (
                   museum.name
                 ) : (
