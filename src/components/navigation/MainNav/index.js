@@ -30,11 +30,7 @@ function MainNav({ children, screenTitle }) {
       </NavBar>
 
       <NavDrawer
-        userAvatar={
-          user.avatar
-            ? user.avatar
-            : DefaultAvatar
-        }
+        userAvatar={user ? user.avatar : DefaultAvatar}
         userName={user ? user.name : 'Name'}
         userType={user ? user.role : ''}
         handleDrawer={handleDrawerToggle}
