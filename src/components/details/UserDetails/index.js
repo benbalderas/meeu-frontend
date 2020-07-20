@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { fetchMuseums } from 'redux/MuseumsDuck';
+import { userUpdate } from 'redux/UserDuck';
 import { denormalizeData } from 'helpers/formatters';
 
 import {
@@ -42,7 +43,6 @@ export default function UserDetails() {
   // States
   const [userData, setUserData] = useState({ ...user });
   const [filePreview, setFilePreview] = useState('');
-  console.log(userData);
 
   useEffect(() => {
     dispatch(fetchMuseums(user._id));
@@ -57,6 +57,21 @@ export default function UserDetails() {
 
     if (event.target.name === 'avatar')
       setFilePreview(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    for (let key in userData) {
+      if (key === 'avatar') {
+        formData.append(key, userData[key][0]);
+      } else {
+        formData.append(key, userData[key]);
+      }
+    }
+
+    dispatch(userUpdate(formData, userData._id));
   };
 
   const handleBackClick = () => {
@@ -85,7 +100,7 @@ export default function UserDetails() {
           </label>
         </Box>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             name="avatar"
             accept="image/png, image/jpeg"
@@ -127,7 +142,7 @@ export default function UserDetails() {
               )
             }
           >
-            {status === 'pending' ? 'Updating…' : 'Update'}
+            {status === 'pending' ? 'Updating…' : 'Save changes'}
           </Button>
         </form>
 
