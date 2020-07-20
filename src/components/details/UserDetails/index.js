@@ -16,6 +16,7 @@ import {
   Avatar,
   CircularProgress,
   Grid,
+  Snackbar,
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -40,9 +41,15 @@ export default function UserDetails() {
   const status = useSelector((state) => state.user.status);
   const myMuseum = useSelector((state) => state.museums.items);
 
-  // States
-  const [userData, setUserData] = useState({ ...user });
+  // State
   const [filePreview, setFilePreview] = useState('');
+  const [notif, setNotif] = useState(false);
+  const [avatar, setAvatar] = useState({});
+  const [userData, setUserData] = useState({
+    email: user.email,
+    name: user.name,
+  });
+  console.log(userData);
 
   useEffect(() => {
     dispatch(fetchMuseums(user._id));
@@ -51,7 +58,7 @@ export default function UserDetails() {
   // Handlers
   const handleChange = (event) => {
     const key = event.target.name;
-    const value = event.target.files || event.target.value;
+    const value = event.target.value;
 
     setUserData((prevState) => ({ ...prevState, [key]: value }));
 
@@ -59,19 +66,31 @@ export default function UserDetails() {
       setFilePreview(URL.createObjectURL(event.target.files[0]));
   };
 
+  const handleAvatarChange = (event) => {
+    setAvatar(event.target.files);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
 
     for (let key in userData) {
-      if (key === 'avatar') {
-        formData.append(key, userData[key][0]);
-      } else {
-        formData.append(key, userData[key]);
-      }
+      //   if (key === 'avatar' && Array.isArray([])) {
+      //     //   formData.append(key, userData[key][0]);
+      //     console.log('its array:', userData[key][0]);
+      //   } else {
+      //     formData.append(key, userData[key]);
+      //     console.log('its not array');
+      //   }
+      formData.append(key, userData[key]);
     }
 
-    dispatch(userUpdate(formData, userData._id));
+    if (avatar) {
+      formData.append('avatar', avatar[0]);
+    }
+
+    dispatch(userUpdate(formData, user._id));
+    setNotif(true);
   };
 
   const handleBackClick = () => {
@@ -92,7 +111,7 @@ export default function UserDetails() {
         <Box mt={4} display="flex" alignItems="center">
           <Avatar
             alt="User Name"
-            src={filePreview === '' ? userData.avatar : filePreview}
+            src={filePreview === '' ? user.avatar : filePreview}
           />
 
           <label className={classes.addButton} htmlFor="avatar">
@@ -107,7 +126,7 @@ export default function UserDetails() {
             className={classes.input}
             id="avatar"
             type="file"
-            onChange={handleChange}
+            onChange={handleAvatarChange}
           />
 
           <TextField
@@ -146,7 +165,7 @@ export default function UserDetails() {
           </Button>
         </form>
 
-        {myMuseum && (
+        {myMuseum._id && (
           <Box mt={6}>
             <Typography gutterBottom variant="subtitle1" color="textSecondary">
               My Museum
@@ -160,6 +179,16 @@ export default function UserDetails() {
           </Box>
         )}
       </Container>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={notif}
+        autoHideDuration={6000}
+        message="Cool, profile updated."
+      />
     </>
   );
 }
