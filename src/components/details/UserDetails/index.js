@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { fetchMuseums } from 'redux/MuseumsDuck';
+import { denormalizeData } from 'helpers/formatters';
 
 import {
   Container,
@@ -8,15 +13,52 @@ import {
   Button,
   TextField,
   Avatar,
+  CircularProgress,
+  Grid,
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
 import NavBar from 'components/navigation/NavBar';
+import MuseumCard from 'components/cards/MuseumCard';
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    display: 'none',
+  },
+  addButton: {
+    marginTop: -8,
+    marginLeft: 8,
+  },
+}));
 
 export default function UserDetails() {
+  const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.user.data);
+  const status = useSelector((state) => state.user.status);
+  const myMuseum = useSelector((state) => state.museums.items);
+
+  // States
+  const [userData, setUserData] = useState({ ...user });
+  const [filePreview, setFilePreview] = useState('');
+  console.log(userData);
+
+  useEffect(() => {
+    dispatch(fetchMuseums(user._id));
+  }, [dispatch, user._id]);
 
   // Handlers
+  const handleChange = (event) => {
+    const key = event.target.name;
+    const value = event.target.files || event.target.value;
+
+    setUserData((prevState) => ({ ...prevState, [key]: value }));
+
+    if (event.target.name === 'avatar')
+      setFilePreview(URL.createObjectURL(event.target.files[0]));
+  };
+
   const handleBackClick = () => {
     history.goBack();
   };
@@ -27,8 +69,81 @@ export default function UserDetails() {
         <CloseIcon />
       </NavBar>
 
-      <Container>
-        <Box></Box>
+      <Container maxWidth="xs">
+        <Typography variant="subtitle1" color="textSecondary">
+          Profile
+        </Typography>
+
+        <Box mt={4} display="flex" alignItems="center">
+          <Avatar
+            alt="User Name"
+            src={filePreview === '' ? userData.avatar : filePreview}
+          />
+
+          <label className={classes.addButton} htmlFor="avatar">
+            <Button component="span">Add another</Button>
+          </label>
+        </Box>
+
+        <form>
+          <input
+            name="avatar"
+            accept="image/png, image/jpeg"
+            className={classes.input}
+            id="avatar"
+            type="file"
+            onChange={handleChange}
+          />
+
+          <TextField
+            fullWidth
+            name="name"
+            id="name"
+            label="Name"
+            type="text"
+            onChange={handleChange}
+            value={userData.name}
+          />
+
+          <TextField
+            fullWidth
+            name="email"
+            id="email"
+            label="Email"
+            type="email"
+            onChange={handleChange}
+            value={userData.email}
+          />
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={status === 'pending' ? true : false}
+            endIcon={
+              status === 'pending' && (
+                <CircularProgress size={18} color="secondary" />
+              )
+            }
+          >
+            {status === 'pending' ? 'Updating…' : 'Update'}
+          </Button>
+        </form>
+
+        {myMuseum && (
+          <Box mt={6}>
+            <Typography gutterBottom variant="subtitle1" color="textSecondary">
+              My Museum
+            </Typography>
+
+            <Grid container spacing={3}>
+              {denormalizeData(myMuseum).map((museum, index) => (
+                <MuseumCard key={index} {...museum} fullWidth />
+              ))}
+            </Grid>
+          </Box>
+        )}
       </Container>
     </>
   );

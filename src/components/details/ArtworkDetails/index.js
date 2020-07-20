@@ -7,7 +7,7 @@ import { fetchSingleArtwork } from 'redux/ArtworksDuck';
 import { splitSentences } from 'helpers/formatters';
 
 import { Container, Box, Typography } from '@material-ui/core';
-import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
+import CloseIcon from '@material-ui/icons/Close';
 import NavBar from 'components/navigation/NavBar';
 import InfoBit from 'components/cards/InfoBit';
 
@@ -71,7 +71,7 @@ export default function ArtworkDetails() {
   return (
     <>
       <NavBar screenTitle="" onClick={handleBackClick}>
-        <KeyboardBackspaceOutlinedIcon />
+        <CloseIcon />
       </NavBar>
 
       <Container maxWidth="sm">

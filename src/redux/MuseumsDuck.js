@@ -9,7 +9,7 @@ const GET_MUSEUMS_ERROR = 'meeuapp/museums/GET_MUSEUMS_ERROR';
 const GET_SINGLE_MUSEUM_SUCCESS = 'meeuapp/museums/GET_SINGLE_MUSEUM_SUCCESS';
 
 const intialState = {
-  items: { _id: '' },
+  items: { },
   status: '',
   error: undefined,
 };
