@@ -11,6 +11,9 @@ const LOGOUT = 'meeuapp/user/LOGOUT';
 const SIGNUP_SUCCESS = 'meeuapp/user/SIGNUP_SUCCESS';
 const SIGNUP_ERROR = 'meeuapp/user/SIGNUP_ERROR';
 
+const USER_UPDATE_SUCCESS = 'meeuapp/user/USER_UPDATE_SUCCESS';
+const USER_UPDATE_ERROR = 'meeuapp/user/USER_UPDATE_ERROR';
+
 const initialState = {
   data: JSON.parse(localStorage.getItem('user')),
   status: '',
@@ -31,6 +34,12 @@ export default function reducer(state = initialState, action) {
       return { status: 'success', data: { ...action.payload } };
     case SIGNUP_ERROR:
       return { status: 'error', error: action.error };
+    case USER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        items: { ...state.items, [action.payload._id]: action.payload },
+      };
     default:
       return state;
   }
@@ -64,6 +73,16 @@ export const signupError = (error) => ({
   error,
 });
 
+export const userUpdateSuccess = (payload) => ({
+  type: USER_UPDATE_SUCCESS,
+  payload,
+});
+
+export const userUpdateError = (error) => ({
+  type: USER_UPDATE_ERROR,
+  error,
+});
+
 // pass data to thunk in first parameter
 export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
@@ -93,5 +112,18 @@ export const signup = (data, push) => (dispatch) => {
     })
     .catch((res) => {
       dispatch(signupError(res.response.data));
+    });
+};
+
+export const userUpdate = (data, _id) => (dispatch) => {
+  dispatch(loadingUser());
+
+  return axios
+    .post(`${base_url}/${_id}`, data)
+    .then((res) => {
+      dispatch(userUpdateSuccess(res.data.result));
+    })
+    .catch((err) => {
+      dispatch(userUpdateError(err));
     });
 };

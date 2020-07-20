@@ -10,9 +10,22 @@ import {
   Typography,
 } from '@material-ui/core';
 
-export default function MuseumCard({ _id, image, name, city, countryCode }) {
+export default function MuseumCard({
+  _id,
+  image,
+  name,
+  city,
+  countryCode,
+  fullWidth,
+}) {
   return (
-    <Grid item xs={6} sm={6} md={4} lg={3}>
+    <Grid
+      item
+      xs={fullWidth ? 12 : 6}
+      sm={fullWidth ? 12 : 6}
+      md={fullWidth ? 12 : 4}
+      lg={fullWidth ? 12 : 3}
+    >
       <Card elevation={0}>
         <CardActionArea>
           <Link to={`/museums/${_id}`}>
