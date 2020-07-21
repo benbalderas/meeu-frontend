@@ -5,6 +5,7 @@ import AdminRoute from 'components/wrappers/AdminRoute';
 
 // Landing
 import LandingNav from 'components/navigation/LandingNav';
+import LandingPage from 'components/pages/LandingPage';
 import Login from 'components/forms/Login';
 import Signup from 'components/forms/Signup';
 
@@ -25,6 +26,16 @@ import UserDetails from 'components/details/UserDetails';
 
 const Routes = () => (
   <Switch>
+    <Route
+      exact
+      path="/"
+      component={() => (
+        <>
+          <LandingNav />
+          <LandingPage />
+        </>
+      )}
+    />
     <Route
       exact
       path="/login"
