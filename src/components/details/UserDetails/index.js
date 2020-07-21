@@ -49,7 +49,6 @@ export default function UserDetails() {
     email: user.email,
     name: user.name,
   });
-  console.log(userData);
 
   useEffect(() => {
     dispatch(fetchMuseums(user._id));
@@ -61,13 +60,11 @@ export default function UserDetails() {
     const value = event.target.value;
 
     setUserData((prevState) => ({ ...prevState, [key]: value }));
-
-    if (event.target.name === 'avatar')
-      setFilePreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const handleAvatarChange = (event) => {
     setAvatar(event.target.files);
+    setFilePreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const handleSubmit = (event) => {
@@ -75,26 +72,22 @@ export default function UserDetails() {
     const formData = new FormData();
 
     for (let key in userData) {
-      //   if (key === 'avatar' && Array.isArray([])) {
-      //     //   formData.append(key, userData[key][0]);
-      //     console.log('its array:', userData[key][0]);
-      //   } else {
-      //     formData.append(key, userData[key]);
-      //     console.log('its not array');
-      //   }
       formData.append(key, userData[key]);
     }
 
-    if (avatar) {
+    if (avatar[0]) {
       formData.append('avatar', avatar[0]);
     }
 
-    dispatch(userUpdate(formData, user._id));
-    setNotif(true);
+    dispatch(userUpdate(formData, user._id, setNotif));
   };
 
   const handleBackClick = () => {
     history.goBack();
+  };
+
+  const handleClose = (event) => {
+    setNotif(false);
   };
 
   return (
@@ -186,7 +179,8 @@ export default function UserDetails() {
           horizontal: 'right',
         }}
         open={notif}
-        autoHideDuration={6000}
+        onClose={handleClose}
+        autoHideDuration={4000}
         message="Cool, profile updated."
       />
     </>

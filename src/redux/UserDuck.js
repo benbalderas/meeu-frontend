@@ -115,13 +115,14 @@ export const signup = (data, push) => (dispatch) => {
     });
 };
 
-export const userUpdate = (data, _id) => (dispatch) => {
+export const userUpdate = (data, _id, setNotif) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
     .post(`${base_url}/${_id}`, data)
     .then((res) => {
       dispatch(userUpdateSuccess(res.data.result));
+      setNotif(true);
     })
     .catch((err) => {
       dispatch(userUpdateError(err));
