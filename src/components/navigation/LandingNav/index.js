@@ -1,9 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Logo from 'images/logo.svg';
 
 import { AppBar, Button, Toolbar, Box, IconButton } from '@material-ui/core';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const useStyles = makeStyles((theme) => ({
   bar: {
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LandingNav({ children }) {
   const classes = useStyles();
+  const user = useSelector((state) => state.user.data);
 
   return (
     <>
@@ -37,26 +40,38 @@ export default function LandingNav({ children }) {
 
           <Box className={classes.slogan} />
 
-          <Button
-            component={NavLink}
-            to="/login"
-            activeStyle={{
-              color: '#8d8d8d',
-            }}
-          >
-            Login
-          </Button>
+          {user ? (
+            <Button
+              component={NavLink}
+              to="/museums"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Back to the app
+            </Button>
+          ) : (
+            <>
+              <Button
+                component={NavLink}
+                to="/login"
+                activeStyle={{
+                  color: '#8d8d8d',
+                }}
+              >
+                Login
+              </Button>
 
-          <Button
-            color="primary"
-            component={NavLink}
-            to="/signup"
-            activeStyle={{
-              color: '#8d8d8d',
-            }}
-          >
-            Signup
-          </Button>
+              <Button
+                color="primary"
+                component={NavLink}
+                to="/signup"
+                activeStyle={{
+                  color: '#8d8d8d',
+                }}
+              >
+                Signup
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
 
