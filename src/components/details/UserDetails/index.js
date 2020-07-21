@@ -158,7 +158,7 @@ export default function UserDetails() {
           </Button>
         </form>
 
-        {myMuseum._id && (
+        {myMuseum && (
           <Box mt={6}>
             <Typography gutterBottom variant="subtitle1" color="textSecondary">
               My Museum
