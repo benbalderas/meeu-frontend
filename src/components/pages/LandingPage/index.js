@@ -1,11 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { Typography, Container, Box, Button } from '@material-ui/core';
 import HeroImage from 'images/hero-image.png';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
+    height: '80vh',
+
     '& > *': {
       width: '45%',
     },
@@ -14,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
+
       '& > *': {
         width: '100%',
       },
@@ -26,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LandingPage() {
   const classes = useStyles();
+  const mobile = useMediaQuery('(max-width:600px)');
 
   return (
     <Container maxWidth="lg">
@@ -45,7 +50,7 @@ export default function LandingPage() {
             your desktop or phone.
           </Typography>
 
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" fullWidth={mobile}>
             Start now
           </Button>
         </Box>
