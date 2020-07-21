@@ -22,9 +22,10 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'obviously, sans-serif',
     h1: {
-      fontFamily: 'obviously, sans-serif',
-      fontWeight: 700,
+      fontFamily: 'obviously-condensed, sans-serif',
+      fontWeight: 800,
       fontStyle: 'normal',
+      fontSize: '7.5rem',
     },
     h2: {
       fontFamily: 'obviously, sans-serif',
@@ -112,6 +113,13 @@ const theme = createMuiTheme({
       root: {
         '&.MuiCard-root': {
           background: 'transparent',
+        },
+      },
+    },
+    MuiToolbar: {
+      root: {
+        '& > .MuiButton-root': {
+          marginTop: 0,
         },
       },
     },

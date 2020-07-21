@@ -28,11 +28,7 @@ function NavBar({ onClick, screenTitle, children, isMain, onLogout }) {
   const handleSearchClick = () => {};
 
   return (
-    <AppBar
-      position="fixed"
-      elevation={0}
-      className={classes.appBar}
-    >
+    <AppBar position="fixed" elevation={0} className={classes.appBar}>
       <Toolbar>
         <IconButton
           aria-label="open drawer"
