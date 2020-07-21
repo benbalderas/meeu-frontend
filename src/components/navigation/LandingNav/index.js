@@ -40,7 +40,7 @@ export default function LandingNav({ children }) {
 
           <Box className={classes.slogan} />
 
-          {user ? (
+          {Object.keys(user).length > 0 ? (
             <Button
               component={NavLink}
               to="/museums"
