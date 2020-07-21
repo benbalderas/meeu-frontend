@@ -27,7 +27,7 @@ export default function LandingNav({ children }) {
 
   return (
     <>
-      <AppBar position="fixed" elevation={0}>
+      <AppBar position="fixed" elevation={0} color="transparent">
         <Toolbar>
           <IconButton
             className={classes.logo}

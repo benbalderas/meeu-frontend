@@ -8,22 +8,32 @@ import HeroImage from 'images/hero-image.png';
 const useStyles = makeStyles((theme) => ({
   hero: {
     height: '80vh',
-
-    '& > *': {
-      width: '45%',
-    },
     '& > *:first-child': {
+      width: '45%',
       marginRight: '10%',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
+      height: 'auto',
       flexDirection: 'column',
-
-      '& > *': {
-        width: '100%',
-      },
       '& > *:first-child': {
+        width: '100%',
         marginRight: 0,
       },
+    },
+  },
+  image: {
+    width: '50%',
+    height: 800,
+    backgroundImage: `url(${HeroImage})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '684px 714px',
+
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      height: 400,
+      marginTop: theme.spacing(1),
+      backgroundSize: '100%',
     },
   },
 }));
@@ -55,7 +65,7 @@ export default function LandingPage() {
           </Button>
         </Box>
 
-        <img src={HeroImage} alt="Van Gogh" />
+        <Box className={classes.image} />
       </Box>
     </Container>
   );
