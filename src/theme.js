@@ -26,6 +26,10 @@ const theme = createMuiTheme({
       fontWeight: 800,
       fontStyle: 'normal',
       fontSize: '7.5rem',
+      lineHeight: 1,
+      '@media (max-width:600px)': {
+        fontSize: '5rem',
+      },
     },
     h2: {
       fontFamily: 'obviously, sans-serif',
