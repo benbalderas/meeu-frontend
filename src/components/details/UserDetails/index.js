@@ -158,7 +158,7 @@ export default function UserDetails() {
           </Button>
         </form>
 
-        {myMuseum && (
+        {Object.keys(myMuseum).length !== 0 && (
           <Box mt={6}>
             <Typography gutterBottom variant="subtitle1" color="textSecondary">
               My Museum
