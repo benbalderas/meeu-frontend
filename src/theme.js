@@ -116,6 +116,13 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiToolbar: {
+      root: {
+        '& > .MuiButton-root': {
+          marginTop: 0,
+        },
+      },
+    },
     MuiContainer: {
       root: {
         marginTop: 24,

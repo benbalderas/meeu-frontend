@@ -12,6 +12,10 @@ import Routes from 'Routes';
 
 function App() {
   const location = useLocation();
+  const landingPages =
+    location.pathname !== '/login' &&
+    location.pathname !== '/signup' &&
+    location.pathname !== '/';
 
   return (
     <ThemeProvider theme={theme}>
@@ -19,9 +23,7 @@ function App() {
 
       <div className="App">
         <ConditionalWrapper
-          condition={
-            location.pathname !== '/login' && location.pathname !== '/signup'
-          }
+          condition={landingPages}
           wrapper={(children) => (
             <MainNav screenTitle={getScreenTitle(location.pathname)}>
               {children}

@@ -4,6 +4,7 @@ import PrivateRoute from 'components/wrappers/PrivateRoute';
 import AdminRoute from 'components/wrappers/AdminRoute';
 
 // Landing
+import LandingNav from 'components/navigation/LandingNav';
 import Login from 'components/forms/Login';
 import Signup from 'components/forms/Signup';
 
@@ -24,8 +25,26 @@ import UserDetails from 'components/details/UserDetails';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/login" component={() => <Login />} />
-    <Route exact path="/signup" component={() => <Signup />} />
+    <Route
+      exact
+      path="/login"
+      component={() => (
+        <>
+          <LandingNav />
+          <Login />
+        </>
+      )}
+    />
+    <Route
+      exact
+      path="/signup"
+      component={() => (
+        <>
+          <LandingNav />
+          <Signup />
+        </>
+      )}
+    />
 
     <PrivateRoute exact path="/museums" component={() => <MuseumGrid />} />
     <PrivateRoute exact path="/exhibits" component={() => <ExhibitsGrid />} />

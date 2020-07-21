@@ -10,7 +10,6 @@ import NavBar from 'components/navigation/NavBar';
 import DefaultAvatar from 'images/default-avatar.png';
 
 const useStyles = makeStyles((theme) => ({
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
 }));
 
