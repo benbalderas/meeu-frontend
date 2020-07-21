@@ -49,7 +49,6 @@ export default function UserDetails() {
     email: user.email,
     name: user.name,
   });
-  console.log(userData);
 
   useEffect(() => {
     dispatch(fetchMuseums(user._id));
@@ -76,7 +75,7 @@ export default function UserDetails() {
       formData.append(key, userData[key]);
     }
 
-    if (avatar) {
+    if (avatar[0]) {
       formData.append('avatar', avatar[0]);
     }
 
