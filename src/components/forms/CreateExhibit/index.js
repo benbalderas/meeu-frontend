@@ -28,7 +28,7 @@ export default function CreateExhibit() {
   const userId = useSelector((state) => state.user.data._id);
   const status = useSelector((state) => state.artworks.status);
   const adminMuseum = useSelector(
-    (state) => denormalizeData(state.museums.items)[0]._id
+    (state) => denormalizeData(state.museums.items)[0]?._id
   );
 
   useEffect(() => {
@@ -47,11 +47,11 @@ export default function CreateExhibit() {
     const value = event.target.value;
 
     setExhibit((prevState) => ({ ...prevState, [key]: value }));
-    console.log(exhibit);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     exhibit['museum'] = adminMuseum;
     dispatch(createExhibit(exhibit, push));
   };

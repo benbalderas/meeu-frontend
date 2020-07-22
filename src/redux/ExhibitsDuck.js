@@ -75,7 +75,7 @@ export const getSingleExhibitSuccess = (payload) => ({
 // Thunks
 export const fetchExhibits = (museumId) => (dispatch) => {
   dispatch(loadingExhibits());
-  
+
   const url = museumId
     ? `${base_url}/exhibits?museum=${museumId}`
     : `${base_url}/exhibits`;

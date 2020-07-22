@@ -48,7 +48,7 @@ export default function CreateArtwork() {
   const userId = useSelector((state) => state.user.data._id);
   const status = useSelector((state) => state.artworks.status);
   const adminMuseum = useSelector(
-    (state) => denormalizeData(state.museums.items)[0]._id
+    (state) => denormalizeData(state.museums.items)[0]?._id
   );
 
   useLayoutEffect(() => {
