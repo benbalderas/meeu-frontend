@@ -132,7 +132,7 @@ export const fetchSingleArtwork = (id) => (dispatch) => {
 export const deleteArtwork = (id, push) => (dispatch) => {
   dispatch(loadingArtworks());
 
-  return axios.delete(`${base_url}/artworks/${id}`).then((res) => {
+  return axios.delete(`${base_url}/artworks/delete/${id}`).then((res) => {
     dispatch(deleteArtworkSuccess(res.data.result));
     push('/artworks');
   });

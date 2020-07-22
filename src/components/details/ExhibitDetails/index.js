@@ -4,11 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchSingleExhibit } from 'redux/ExhibitsDuck';
+import { fetchSingleExhibit, deleteExhibit } from 'redux/ExhibitsDuck';
 import { fetchArtworks } from 'redux/ArtworksDuck';
 import { fetchMuseums } from 'redux/MuseumsDuck';
 import { denormalizeData } from 'helpers/formatters';
-import { deleteExhibit } from 'redux/ExhibitsDuck';
 
 import {
   Container,
@@ -45,8 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ExhibitDetails() {
   const dispatch = useDispatch();
-  const { push } = useHistory();
-  const history = useHistory();
+  const { push, goBack } = useHistory();
   const classes = useStyles();
   const { id } = useParams();
 
@@ -71,7 +69,7 @@ export default function ExhibitDetails() {
 
   // Handlers
   const handleBackClick = () => {
-    history.goBack();
+    goBack();
   };
 
   const handleDeleteClick = () => {
