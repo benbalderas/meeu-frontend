@@ -12,6 +12,8 @@ const GET_SINGLE_ARTWORK_SUCCESS =
 const CREATE_ARTWORK_SUCCESS = 'meeuapp/artworks/CREATE_ARTWORK_SUCCESS';
 const CREATE_ARTWORK_ERROR = 'meeuapp/artworks/CREATE_ARTWORK_ERROR';
 
+const DELETE_ARTWORK_SUCCESS = 'meeuapp/exhibits/DELETE_ARTWORK_SUCCESS';
+
 const intialState = {
   items: {},
   status: '',
@@ -36,6 +38,8 @@ export default function reducer(state = intialState, action) {
       return { status: 'error', error: action.error };
     case GET_SINGLE_ARTWORK_SUCCESS:
       return { ...state, status: 'success', items: { ...action.payload } };
+    case DELETE_ARTWORK_SUCCESS:
+      return { ...state, status: 'success' };
     default:
       return state;
   }
@@ -68,6 +72,10 @@ export const createArtworkError = (error) => ({
 export const getSingleArtworkSuccess = (payload) => ({
   type: GET_SINGLE_ARTWORK_SUCCESS,
   payload,
+});
+
+export const deleteArtworkSuccess = () => ({
+  type: DELETE_ARTWORK_SUCCESS,
 });
 
 // Thunk
@@ -119,4 +127,13 @@ export const fetchSingleArtwork = (id) => (dispatch) => {
     .catch((err) => {
       dispatch(getArtworksError(err));
     });
+};
+
+export const deleteArtwork = (id, push) => (dispatch) => {
+  dispatch(loadingArtworks());
+
+  return axios.delete(`${base_url}/artworks/delete/${id}`).then((res) => {
+    dispatch(deleteArtworkSuccess(res.data.result));
+    push('/artworks');
+  });
 };

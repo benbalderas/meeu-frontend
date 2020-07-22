@@ -47,13 +47,17 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     pointerEvents: 'none',
   },
+  divider: {
+    marginBottom: theme.spacing(5),
+  },
 }));
 
 export default function ArtworkDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const { goBack } = useHistory();
   const { id } = useParams();
+
   const artwork = useSelector((state) => state.artworks.items);
   const infoBits = artwork.description
     ? splitSentences(artwork.description)
@@ -65,7 +69,7 @@ export default function ArtworkDetails() {
 
   // Handlers
   const handleBackClick = () => {
-    history.goBack();
+    goBack();
   };
 
   return (
