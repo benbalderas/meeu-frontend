@@ -33,10 +33,10 @@ export default function reducer(state = intialState, action) {
         status: 'success',
         items: { ...state.items, [action.payload._id]: action.payload },
       };
-    case GET_SINGLE_EXHIBIT_SUCCESS:
-      return { ...state, status: 'success', items: { ...action.payload } };
     case CREATE_EXHIBIT_ERROR:
       return { status: 'error', error: action.error };
+    case GET_SINGLE_EXHIBIT_SUCCESS:
+      return { ...state, status: 'success', items: { ...action.payload } };
     default:
       return state;
   }
@@ -96,7 +96,7 @@ export const createExhibit = (data, push) => (dispatch) => {
   dispatch(loadingExhibits());
 
   return axios
-    .post(`${base_url}/exhibits`, data)
+    .post(`${base_url}/exhibits/create`, data)
     .then((res) => {
       dispatch(createExhibitSuccess(res.data.result));
       push('/exhibits');

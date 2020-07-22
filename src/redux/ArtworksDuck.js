@@ -94,7 +94,7 @@ export const createArtwork = (data, push) => (dispatch) => {
   dispatch(loadingArtworks());
 
   return axios
-    .post(`${base_url}/artworks`, data, {
+    .post(`${base_url}/artworks/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
