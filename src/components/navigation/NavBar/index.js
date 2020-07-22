@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DRAWER_WIDTH } from 'constants/navigation';
 
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {

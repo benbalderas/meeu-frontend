@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMuseums } from 'redux/MuseumsDuck';
@@ -61,10 +61,10 @@ export default function MuseumGrid() {
     dispatch(fetchMuseums());
   }, [dispatch]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFilteredMuseums(
       denormalizeData(museums).filter((museum) =>
-        museum.city.toLowerCase().includes(search.toLowerCase())
+        museum.city?.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, museums]);
