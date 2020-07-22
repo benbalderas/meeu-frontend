@@ -60,7 +60,7 @@ export default function ExhibitDetails() {
       </NavBar>
 
       <Container maxWidth="xl">
-        <Grid container spacing={2} alignItems="top">
+        <Grid container spacing={2}>
           <Grid item md={6} lg={6} sm={12}>
             {/* TODO: Add museum name */}
             <Typography variant="h3">{exhibit.title}</Typography>
