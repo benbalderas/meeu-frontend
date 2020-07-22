@@ -130,7 +130,7 @@ export const fetchSingleExhibit = (id) => (dispatch) => {
 export const deleteExhibit = (id, push) => (dispatch) => {
   dispatch(loadingExhibits());
 
-  return axios.delete(`${base_url}/exhibits/delete/${id}`).then((res) => {
+  return axios.delete(`${base_url}/exhibits/${id}`).then((res) => {
     dispatch(deleteExhibitSuccess(res.data.result));
     push('/exhibits');
   });
