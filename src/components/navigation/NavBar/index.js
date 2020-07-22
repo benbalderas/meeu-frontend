@@ -22,10 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar({ onClick, screenTitle, children, isMain, onLogout }) {
+function NavBar({ onClick, screenTitle, children, isMain, onSearchClick }) {
   const classes = useStyles();
-
-  const handleSearchClick = () => {};
 
   return (
     <AppBar position="fixed" elevation={0} className={classes.appBar}>
@@ -42,13 +40,6 @@ function NavBar({ onClick, screenTitle, children, isMain, onLogout }) {
         <Typography variant="h6" noWrap className={classes.appBarTitle}>
           {screenTitle}
         </Typography>
-
-        {isMain && (
-          // TODO: Add searchbox https://material-ui.com/components/app-bar/#app-bar-with-search-field
-          <IconButton edge="end" color="inherit" onClick={handleSearchClick}>
-            <SearchIcon />
-          </IconButton>
-        )}
       </Toolbar>
     </AppBar>
   );

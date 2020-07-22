@@ -1,31 +1,101 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMuseums } from 'redux/MuseumsDuck';
 import { denormalizeData } from 'helpers/formatters';
 
-import { Container, Grid, Box } from '@material-ui/core';
+import { Container, Grid, Box, InputBase } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import MuseumCard from 'components/cards/MuseumCard';
 
+const useStyles = makeStyles((theme) => ({
+  search: {
+    position: 'absolute',
+    top: 12,
+    right: 16,
+    zIndex: 8000,
+    borderRadius: theme.shape.borderRadius,
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.05),
+    },
+    marginLeft: 0,
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1.5, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '0ch',
+    '&:focus': {
+      width: '10ch',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '0ch',
+      '&:focus': {
+        width: '12ch',
+      },
+    },
+  },
+}));
+
 export default function MuseumGrid() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const museums = useSelector((state) => state.museums.items);
 
-  // executes prev to component mounting
+  const [search, setSearch] = useState('');
+  const [filteredMuseums, setFilteredMuseums] = useState([]);
+
   useEffect(() => {
     dispatch(fetchMuseums());
   }, [dispatch]);
-  // empty brakets prevent useEffect from being executed constantly
-  // a value can be passed inside, and that would make the useEffect execute each time the value changes, E.g. id
+
+  useEffect(() => {
+    setFilteredMuseums(
+      denormalizeData(museums).filter((museum) =>
+        museum.city.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, museums]);
 
   return (
-    <Box mt={3} mb={5}>
-      <Container>
-        <Grid container spacing={3}>
-          {denormalizeData(museums).map((museum, index) => (
-            <MuseumCard key={index} {...museum} />
-          ))}
-        </Grid>
-      </Container>
-    </Box>
+    <>
+      <div className={classes.search}>
+        <div className={classes.searchIcon}>
+          <SearchIcon />
+        </div>
+
+        <InputBase
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Type a city…"
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </div>
+
+      <Box mt={1} mb={5}>
+        <Container>
+          <Grid container spacing={3}>
+            {filteredMuseums.map((museum, index) => (
+              <MuseumCard key={index} {...museum} />
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </>
   );
 }
