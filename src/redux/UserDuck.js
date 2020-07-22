@@ -38,7 +38,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         status: 'success',
-        items: { ...state.items, [action.payload._id]: action.payload },
+        data: { ...state.data, ...action.payload },
       };
     default:
       return state;
