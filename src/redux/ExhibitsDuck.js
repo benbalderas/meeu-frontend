@@ -12,6 +12,8 @@ const GET_SINGLE_EXHIBIT_SUCCESS =
 const CREATE_EXHIBIT_SUCCESS = 'meeuapp/exhibits/CREATE_EXHIBIT_SUCCESS';
 const CREATE_EXHIBIT_ERROR = 'meeuapp/exhibits/CREATE_EXHIBIT_ERROR';
 
+const DELETE_EXHIBIT_SUCCESS = 'meeuapp/exhibits/DELETE_EXHIBIT_SUCCESS';
+
 const intialState = {
   items: {},
   status: '',
@@ -37,6 +39,8 @@ export default function reducer(state = intialState, action) {
       return { status: 'error', error: action.error };
     case GET_SINGLE_EXHIBIT_SUCCESS:
       return { ...state, status: 'success', items: { ...action.payload } };
+    case DELETE_EXHIBIT_SUCCESS:
+      return { ...state, status: 'success' };
     default:
       return state;
   }
@@ -70,6 +74,10 @@ export const createExhibitError = (error) => ({
 export const getSingleExhibitSuccess = (payload) => ({
   type: GET_SINGLE_EXHIBIT_SUCCESS,
   payload,
+});
+
+export const deleteExhibitSuccess = () => ({
+  type: DELETE_EXHIBIT_SUCCESS,
 });
 
 // Thunks
@@ -117,4 +125,13 @@ export const fetchSingleExhibit = (id) => (dispatch) => {
     .catch((err) => {
       dispatch(getExhibitsError(err));
     });
+};
+
+export const deleteExhibit = (id, push) => (dispatch) => {
+  dispatch(loadingExhibits());
+
+  return axios.delete(`${base_url}/exhibits/${id}`).then((res) => {
+    dispatch(deleteExhibitSuccess(res.data.result));
+    push('/exhibits');
+  });
 };
