@@ -25,7 +25,17 @@ export const fetchThemeSuccess = () => ({
 });
 
 export const switchTheme = () => (dispatch) => {
-  const newMode = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
+  let newMode = '';
+
+  if (localStorage.getItem('theme')) {
+    if (localStorage.getItem('theme') === 'dark') {
+      newMode = 'light';
+    } else if (localStorage.getItem('theme') === 'light') {
+      newMode = 'dark';
+    }
+  } else {
+    newMode = 'light';
+  }
 
   localStorage.setItem('theme', newMode);
   dispatch(switchThemeSuccess());
