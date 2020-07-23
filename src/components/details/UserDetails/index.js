@@ -136,7 +136,9 @@ export default function UserDetails() {
           />
 
           <label className={classes.addButton} htmlFor="avatar">
-            <Button component="span">Add another</Button>
+            <Button disableElevation component="span">
+              Add another
+            </Button>
           </label>
         </Box>
 
@@ -171,6 +173,7 @@ export default function UserDetails() {
           />
 
           <Button
+            disableElevation
             fullWidth
             variant="contained"
             color="primary"

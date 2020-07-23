@@ -76,6 +76,7 @@ export default function LandingPage() {
           </Typography>
 
           <Button
+            disableElevation
             variant="contained"
             color="primary"
             fullWidth={mobile}

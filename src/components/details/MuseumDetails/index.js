@@ -147,7 +147,7 @@ export default function MuseumDetails() {
                 Hmm… looks like this museum has no current exhibitions
               </Typography>
 
-              <Button variant="outlined" component={Link} to="/museums">
+              <Button disableElevation variant="outlined" component={Link} to="/museums">
                 See other museums
               </Button>
             </Box>
