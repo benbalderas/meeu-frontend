@@ -13,10 +13,10 @@ import {
   InputLabel,
   InputAdornment,
   IconButton,
-  Radio,
-  RadioGroup,
-  FormLabel,
-  FormControlLabel,
+  // Radio,
+  // RadioGroup,
+  // FormLabel,
+  // FormControlLabel,
   Button,
   CircularProgress,
 } from '@material-ui/core';
@@ -33,8 +33,8 @@ export default function Signup() {
     name: '',
     email: '',
     password: '',
-    role: 'Visitor',
-    museum: '',
+    // role: 'Visitor',
+    // museum: '',
   });
 
   const handleClickShowPassword = () => {
@@ -112,7 +112,7 @@ export default function Signup() {
             />
           </FormControl>
 
-          <Box mt={3}>
+          {/* <Box mt={3}>
             <FormControl component="fieldset">
               <FormLabel component="legend">What do you want to do?</FormLabel>
 
@@ -142,7 +142,7 @@ export default function Signup() {
               onChange={handleChange}
               helperText="We will get in touch to verify this"
             />
-          )}
+          )} */}
 
           <Button
             disableElevation
