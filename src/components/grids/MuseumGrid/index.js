@@ -10,7 +10,7 @@ import MuseumCard from 'components/cards/MuseumCard';
 
 const useStyles = makeStyles((theme) => ({
   search: {
-    position: 'absolute',
+    position: 'fixed',
     top: 12,
     right: 16,
     zIndex: 8000,
