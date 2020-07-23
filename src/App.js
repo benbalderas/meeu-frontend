@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import 'App.css';
-import theme from 'theme';
+import { getTheme } from 'theme';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 
 import getScreenTitle from 'helpers/router';
@@ -11,6 +11,9 @@ import MainNav from 'components/navigation/MainNav';
 import Routes from 'Routes';
 
 function App() {
+  const appTheme = getTheme({
+    paletteType: 'dark',
+  });
   const location = useLocation();
   const landingPages =
     location.pathname !== '/login' &&
@@ -18,7 +21,7 @@ function App() {
     location.pathname !== '/';
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={appTheme}>
       <CssBaseline />
 
       <div className="App">

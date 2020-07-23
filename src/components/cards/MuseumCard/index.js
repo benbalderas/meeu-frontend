@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import {
   Grid,
@@ -9,6 +10,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export default function MuseumCard({
   _id,
@@ -18,6 +20,8 @@ export default function MuseumCard({
   countryCode,
   fullWidth,
 }) {
+  const status = useSelector((state) => state.museums?.status);
+
   return (
     <Grid
       item
@@ -29,15 +33,23 @@ export default function MuseumCard({
       <Card elevation={0}>
         <CardActionArea>
           <Link to={`/museums/${_id}`}>
-            <CardMedia image={image} title={name} src="" />
+            {status === 'pending' ? (
+              <Skeleton animation="wave" variant="rect" height={210} />
+            ) : (
+              <CardMedia image={image} title={name} />
+            )}
 
             <CardContent>
               <Typography variant="subtitle1" component="h2">
-                {name}
+                {status === 'pending' ? <Skeleton /> : name}
               </Typography>
 
               <Typography variant="body2" color="textSecondary" component="p">
-                {`${city}, ${countryCode}`}
+                {status === 'pending' ? (
+                  <Skeleton />
+                ) : (
+                  `${city}, ${countryCode}`
+                )}
               </Typography>
             </CardContent>
           </Link>
