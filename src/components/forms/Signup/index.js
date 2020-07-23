@@ -13,10 +13,7 @@ import {
   InputLabel,
   InputAdornment,
   IconButton,
-  // Radio,
-  // RadioGroup,
-  // FormLabel,
-  // FormControlLabel,
+  Grid,
   Button,
   CircularProgress,
 } from '@material-ui/core';
@@ -59,123 +56,138 @@ export default function Signup() {
   };
 
   return (
-    <Box mt={3} mb={5}>
-      <Container maxWidth="xs">
-        <Typography gutterBottom align="center" variant="h2">
-          Create an account
-        </Typography>
+    <Container maxWidth="md">
+      <Grid container spacing={0}>
+        <Grid item xs={12} sm={5} md={5}>
+          <Typography gutterBottom align="center" variant="h2">
+            Visitor account
+          </Typography>
 
-        <Typography align="center" variant="body1">
-          Experience top museums in the world. Know all about your favorite art
-          pieces.
-        </Typography>
+          <Typography align="center" variant="body1" color="textSecondary">
+            Experience top museums in the world. Know all about your favorite
+            art pieces.
+          </Typography>
 
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            name="name"
-            id="name"
-            label="Full Name"
-            type="text"
-            required
-            onChange={handleChange}
-          />
-
-          <TextField
-            fullWidth
-            name="email"
-            id="email"
-            label="Email"
-            type="email"
-            required
-            onChange={handleChange}
-          />
-
-          <FormControl fullWidth required>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              id="password"
-              type={passShow ? 'text' : 'password'}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {passShow ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-
-          {/* <Box mt={3}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">What do you want to do?</FormLabel>
-
-              <RadioGroup name="role" onChange={handleChange} value={user.role}>
-                <FormControlLabel
-                  value="Visitor"
-                  control={<Radio />}
-                  label="I want to experience museums"
-                />
-                <FormControlLabel
-                  value="Admin"
-                  control={<Radio />}
-                  label="I'm a museum admin"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Box>
-
-          {user.role === 'Admin' && (
+          <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              name="museum"
-              id="museum"
-              label="Museum where you work"
+              name="name"
+              id="name"
+              label="Full Name"
               type="text"
               required
               onChange={handleChange}
-              helperText="We will get in touch to verify this"
             />
-          )} */}
 
-          <Button
-            disableElevation
-            fullWidth
-            variant="contained"
-            color="primary"
-            type="submit"
-            disabled={status === 'pending' ? true : false}
-            endIcon={
-              status === 'pending' && (
-                <CircularProgress size={18} color="secondary" />
-              )
-            }
-          >
-            Create account
-          </Button>
-        </form>
+            <TextField
+              fullWidth
+              name="email"
+              id="email"
+              label="Email"
+              type="email"
+              required
+              onChange={handleChange}
+            />
 
-        <Box mt={6} display="flex" flexDirection="column" alignItems="center">
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            align="center"
-            display="block"
-          >
-            Already a member?
-          </Typography>
+            <FormControl fullWidth required>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                id="password"
+                type={passShow ? 'text' : 'password'}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {passShow ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
 
-          <Button disableElevation size="small" component={Link} to="/login">
-            Log in here
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+            <Button
+              disableElevation
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={status === 'pending' ? true : false}
+              endIcon={
+                status === 'pending' && (
+                  <CircularProgress size={18} color="secondary" />
+                )
+              }
+            >
+              Create account
+            </Button>
+          </form>
+
+          <Box mt={4} display="flex" flexDirection="column" alignItems="center">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              align="center"
+              display="block"
+            >
+              Already a member?
+            </Typography>
+
+            <Button disableElevation size="small" component={Link} to="/login">
+              Log in here
+            </Button>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={2} md={2} style={{ height: 80 }} />
+
+        <Grid item xs={12} sm={5} md={5}>
+          <Box>
+            <Typography
+              gutterBottom
+              variant="h2"
+              align="center"
+              display="block"
+            >
+              Admin account
+            </Typography>
+
+            <Typography
+              gutterBottom
+              display="block"
+              variant="body2"
+              align="center"
+              color="textSecondary"
+            >
+              Get in touch with us, we'd love to get your museum in Meeu and
+              hook you up with an administrator account.
+            </Typography>
+
+            <Box
+              mt={4}
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+            >
+              <Typography display="block" variant="body1" align="center">
+                email: humans@meeu.app
+              </Typography>
+
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => navigator.clipboard.writeText('humans@meeu.app')}
+              >
+                Copy
+              </Button>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
