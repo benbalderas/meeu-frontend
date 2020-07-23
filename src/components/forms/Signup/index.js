@@ -182,7 +182,7 @@ export default function Signup() {
                 size="small"
                 onClick={() => navigator.clipboard.writeText('humans@meeu.app')}
               >
-                Copy
+                Copy address
               </Button>
             </Box>
           </Box>
