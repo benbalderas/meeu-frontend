@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { fetchMuseums } from 'redux/MuseumsDuck';
 import { userUpdate } from 'redux/UserDuck';
+import { switchTheme } from 'redux/ThemeDuck';
 import { denormalizeData } from 'helpers/formatters';
 
 import {
@@ -17,6 +18,8 @@ import {
   CircularProgress,
   Grid,
   Snackbar,
+  Switch,
+  FormControlLabel,
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -40,8 +43,10 @@ export default function UserDetails() {
   const user = useSelector((state) => state.user.data);
   const status = useSelector((state) => state.user.status);
   const myMuseum = useSelector((state) => state.museums.items);
+  const mode = useSelector((state) => state.theme.mode);
 
   // State
+  const [checked, setChecked] = useState(mode === 'dark' ? false : true);
   const [filePreview, setFilePreview] = useState('');
   const [notif, setNotif] = useState(false);
   const [avatar, setAvatar] = useState({});
@@ -90,6 +95,11 @@ export default function UserDetails() {
     setNotif(false);
   };
 
+  const handleSwitchChange = (event) => {
+    setChecked(!checked);
+    dispatch(switchTheme());
+  };
+
   return (
     <>
       <NavBar screenTitle="Settings" onClick={handleBackClick}>
@@ -97,6 +107,24 @@ export default function UserDetails() {
       </NavBar>
 
       <Container maxWidth="xs">
+        <Box mb={6}>
+          <Typography variant="subtitle1" color="textSecondary">
+            App Settings
+          </Typography>
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={checked}
+                onChange={handleSwitchChange}
+                name="switchTheme"
+                color="primary"
+              />
+            }
+            label="Light mode"
+          />
+        </Box>
+
         <Typography variant="subtitle1" color="textSecondary">
           Profile
         </Typography>
