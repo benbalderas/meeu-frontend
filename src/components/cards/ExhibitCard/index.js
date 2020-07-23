@@ -27,12 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ExhibitCard({
-  _id,
-  title,
-  type,
-  description,
-}) {
+export default function ExhibitCard({ _id, title, type, description }) {
   const classes = useStyles();
 
   return (
@@ -56,7 +51,7 @@ export default function ExhibitCard({
                   variant="outlined"
                   size="small"
                   label={type}
-                  color={type === 'Temporary' ? "primary" : "default"}
+                  color={type === 'Temporary' ? 'primary' : 'default'}
                 />
               </Box>
 

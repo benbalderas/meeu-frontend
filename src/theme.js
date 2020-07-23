@@ -97,14 +97,6 @@ const theme = createMuiTheme({
 
   overrides: {
     // Surfaces
-    MuiAppBar: {
-      root: {
-        backgroundColor: COLOR_BLACK,
-      },
-      colorPrimary: {
-        backgroundColor: COLOR_BLACK,
-      },
-    },
     MuiDrawer: {
       paperAnchorDockedLeft: {
         borderRight: 0,

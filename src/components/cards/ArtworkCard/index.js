@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -10,6 +11,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   details: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ArtworkCard({ _id, image, title, author }) {
+  const status = useSelector((state) => state.artworks?.status);
   const classes = useStyles();
 
   return (
@@ -34,15 +37,28 @@ export default function ArtworkCard({ _id, image, title, author }) {
       <Card elevation={0}>
         <CardActionArea>
           <Link className={classes.details} to={`/artworks/${_id}`}>
-            <CardMedia className={classes.image} image={image} title={title} />
+            {status === 'pending' ? (
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="45%"
+                height={210}
+              />
+            ) : (
+              <CardMedia
+                className={classes.image}
+                image={image}
+                title={title}
+              />
+            )}
 
             <CardContent className={classes.content}>
               <Typography gutterBottom variant="h5" component="h2">
-                {title}
+                {status === 'pending' ? <Skeleton /> : title}
               </Typography>
 
               <Typography variant="caption" color="textSecondary" component="p">
-                {author}
+                {status === 'pending' ? <Skeleton /> : author}
               </Typography>
             </CardContent>
           </Link>
