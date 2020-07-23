@@ -43,6 +43,7 @@ const AnimationRoute = ({ children }) => (
 const Routes = () => (
   <AnimatePresence exitBeforeEnter>
     <Switch>
+      {/* Landing */}
       <Route
         exact
         path="/"
@@ -74,6 +75,7 @@ const Routes = () => (
         )}
       />
 
+      {/* Grids */}
       <PrivateRoute
         exact
         path="/museums"
@@ -102,6 +104,7 @@ const Routes = () => (
         )}
       />
 
+      {/* Create */}
       <AdminRoute
         exact
         path="/exhibits/create"
@@ -121,6 +124,7 @@ const Routes = () => (
         )}
       />
 
+      {/* Details */}
       <PrivateRoute
         exact
         path="/museums/:id"
