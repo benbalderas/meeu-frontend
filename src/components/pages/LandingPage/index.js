@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { Typography, Container, Box, Button } from '@material-ui/core';
 import HeroImage from 'images/hero-image.png';
+import HeroImageLight from 'images/hero-image-light.png';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -27,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     width: '50%',
     height: 800,
-    backgroundImage: `url(${HeroImage})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '684px 750px',
@@ -51,9 +52,16 @@ const useStyles = makeStyles((theme) => ({
       color: '#FFCC3E',
     },
   },
+  imageDark: {
+    backgroundImage: `url(${HeroImage})`,
+  },
+  imageLight: {
+    backgroundImage: `url(${HeroImageLight})`,
+  },
 }));
 
 export default function LandingPage() {
+  const mode = useSelector((state) => state.theme?.mode);
   const classes = useStyles();
   const mobile = useMediaQuery('(max-width:600px)');
 
@@ -76,6 +84,7 @@ export default function LandingPage() {
           </Typography>
 
           <Button
+            disableElevation
             variant="contained"
             color="primary"
             fullWidth={mobile}
@@ -86,7 +95,11 @@ export default function LandingPage() {
           </Button>
         </Box>
 
-        <Box className={classes.image}>
+        <Box
+          className={`${classes.image} ${
+            mode === 'dark' ? classes.imageDark : classes.imageLight
+          }`}
+        >
           <Box className={classes.quote} display="flex">
             <Typography variant="h4">"</Typography>
 

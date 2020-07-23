@@ -125,6 +125,7 @@ export default function CreateExhibit() {
             )}
 
             <Button
+              disableElevation
               fullWidth
               variant="contained"
               color="primary"

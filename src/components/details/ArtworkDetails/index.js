@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
   fade: {
     width: '100%',
     height: 120,
-    background:
-      'linear-gradient(to top, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.5) 80%, rgba(18,18,18,0) 100%)',
     position: 'fixed',
     bottom: 0,
     left: 0,
@@ -50,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(5),
   },
+  bgDark: {
+    background:
+      'linear-gradient(to top, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.5) 80%, rgba(18,18,18,0) 100%)',
+  },
+  bgLight: {
+    background:
+      'linear-gradient(to top, rgba(250,250,250,0.9) 0%, rgba(250,250,250,0.5) 80%, rgba(250,250,250,0) 100%)',
+  }
 }));
 
 export default function ArtworkDetails() {
@@ -58,6 +64,7 @@ export default function ArtworkDetails() {
   const { goBack } = useHistory();
   const { id } = useParams();
 
+  const mode = useSelector((state) => state.theme?.mode);
   const artwork = useSelector((state) => state.artworks.items);
   const infoBits = artwork.description
     ? splitSentences(artwork.description)
@@ -116,7 +123,7 @@ export default function ArtworkDetails() {
                 <InfoBit text={bit} key={index} />
               ))}
 
-              <div className={classes.fade} />
+              <div className={`${classes.fade} ${mode === 'dark' ? classes.bgDark : classes.bgLight}`} />
             </Box>
           </>
         )}

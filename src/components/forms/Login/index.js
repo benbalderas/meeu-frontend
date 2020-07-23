@@ -102,6 +102,7 @@ export default function Login() {
           </FormControl>
 
           <Button
+            disableElevation
             fullWidth
             variant="contained"
             color="primary"

@@ -155,6 +155,7 @@ export default function ExhibitDetails() {
               </Typography>
 
               <Button
+                disableElevation
                 variant="outlined"
                 endIcon={<DeleteForeverIcon />}
                 onClick={handleOpen}
@@ -180,10 +181,15 @@ export default function ExhibitDetails() {
             </DialogContent>
 
             <DialogActions>
-              <Button onClick={handleClose} color="secondary">
+              <Button disableElevation onClick={handleClose} color="secondary">
                 Do not delete
               </Button>
-              <Button onClick={handleDeleteClick} color="primary" autoFocus>
+              <Button
+                disableElevation
+                onClick={handleDeleteClick}
+                color="primary"
+                autoFocus
+              >
                 Yes, delete
               </Button>
             </DialogActions>

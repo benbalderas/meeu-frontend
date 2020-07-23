@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { logout } from 'redux/UserDuck';
+import { switchTheme } from 'redux/ThemeDuck';
 
 import {
   Drawer,
@@ -65,6 +66,8 @@ export default function NavDrawer({
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.setItem('theme', 'light');
+    dispatch(switchTheme());
     history.push('/login');
   };
 

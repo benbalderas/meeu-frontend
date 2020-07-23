@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Logo from 'images/logo.svg';
+import LogoLight from 'images/logo-light.svg';
 
 import { AppBar, Button, Toolbar, Box, IconButton } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LandingNav({ children }) {
   const classes = useStyles();
+  const mode = useSelector((state) => state.theme?.mode);
   const user = useSelector((state) => state.user.data);
 
   return (
@@ -35,7 +37,7 @@ export default function LandingNav({ children }) {
             component={NavLink}
             to="/"
           >
-            <img src={Logo} alt="Meeu" />
+            <img src={mode === 'dark' ? Logo : LogoLight} alt="Meeu" />
           </IconButton>
 
           <Box className={classes.slogan} />

@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
     case LOGIN_ERROR:
       return { status: 'error', error: action.error };
     case LOGOUT:
-      return { ...state, data: localStorage.clear() };
+      return { ...state, data: localStorage.clear() }
     case SIGNUP_SUCCESS:
       return { status: 'success', data: { ...action.payload } };
     case SIGNUP_ERROR:

@@ -145,6 +145,7 @@ export default function Signup() {
           )}
 
           <Button
+            disableElevation
             fullWidth
             variant="contained"
             color="primary"
@@ -170,7 +171,7 @@ export default function Signup() {
             Already a member?
           </Typography>
 
-          <Button size="small" component={Link} to="/login">
+          <Button disableElevation size="small" component={Link} to="/login">
             Log in here
           </Button>
         </Box>

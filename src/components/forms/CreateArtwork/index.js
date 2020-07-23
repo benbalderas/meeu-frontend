@@ -125,6 +125,7 @@ export default function CreateArtwork() {
               </Typography>
 
               <Button
+                disableElevation
                 fullWidth
                 variant="outlined"
                 size="large"
@@ -192,7 +193,12 @@ export default function CreateArtwork() {
                 )}
 
                 <label htmlFor="file">
-                  <Button fullWidth variant="outlined" component="span">
+                  <Button
+                    disableElevation
+                    fullWidth
+                    variant="outlined"
+                    component="span"
+                  >
                     {art.image ? 'Replace Image' : 'Add Image'}
                   </Button>
                 </label>
@@ -244,6 +250,7 @@ export default function CreateArtwork() {
               )}
 
               <Button
+                disableElevation
                 fullWidth
                 variant="contained"
                 color="primary"
