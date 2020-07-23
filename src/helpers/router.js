@@ -9,7 +9,7 @@ const getScreenTitle = (path) => {
     case '/profile':
       return 'Profile';
     default:
-      return 'Meeu';
+      return '';
   }
 };
 
