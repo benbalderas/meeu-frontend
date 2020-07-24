@@ -88,7 +88,7 @@ export const login = (credentials) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post(`${base_url}/login`, credentials)
+    .post(`${base_url}/users/login`, credentials)
     .then((res) => {
       const user = res.data.user;
 
@@ -104,7 +104,7 @@ export const signup = (data, push) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post(`${base_url}/signup`, data)
+    .post(`${base_url}/users/signup`, data)
     .then((res) => {
       dispatch(signupSuccess(res.data.result));
 
@@ -119,7 +119,7 @@ export const userUpdate = (data, _id, setNotif) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post(`${base_url}/${_id}`, data)
+    .post(`${base_url}/users/${_id}`, data)
     .then((res) => {
       dispatch(userUpdateSuccess(res.data.result));
       setNotif(true);
