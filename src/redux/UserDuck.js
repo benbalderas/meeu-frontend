@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
     case LOGOUT:
       return { ...state, data: localStorage.clear() }
     case SIGNUP_SUCCESS:
-      return { status: 'success', data: { ...action.payload } };
+      return { ...state, status: 'success', data: { ...action.payload } };
     case SIGNUP_ERROR:
       return { status: 'error', error: action.error };
     case USER_UPDATE_SUCCESS:
@@ -119,7 +119,7 @@ export const userUpdate = (data, _id, setNotif) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post(`${base_url}/users/${_id}`, data)
+    .post(`${base_url}/users${_id}`, data)
     .then((res) => {
       dispatch(userUpdateSuccess(res.data.result));
       setNotif(true);
