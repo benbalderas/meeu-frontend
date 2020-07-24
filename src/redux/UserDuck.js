@@ -119,7 +119,7 @@ export const userUpdate = (data, _id, setNotif) => (dispatch) => {
   dispatch(loadingUser());
 
   return axios
-    .post(`${base_url}/user/${_id}`, data)
+    .post(`${base_url}/user/update/${_id}`, data)
     .then((res) => {
       dispatch(userUpdateSuccess(res.data.result));
       setNotif(true);
