@@ -30,8 +30,6 @@ export default function Signup() {
     name: '',
     email: '',
     password: '',
-    // role: 'Visitor',
-    // museum: '',
   });
 
   const handleClickShowPassword = () => {
@@ -174,7 +172,7 @@ export default function Signup() {
               flexDirection="column"
             >
               <Typography display="block" variant="body1" align="center">
-                email: humans@meeu.app 
+                email: humans@meeu.app
               </Typography>
 
               <Button
