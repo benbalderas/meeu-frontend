@@ -85,7 +85,7 @@ export function getTheme(theme) {
         fontFamily: 'obviously, sans-serif',
         fontWeight: 400,
         fontSize: '0.875rem',
-        lineHeight: 1.8,
+        lineHeight: 1.6,
       },
       button: {
         fontSize: '0.75rem',
