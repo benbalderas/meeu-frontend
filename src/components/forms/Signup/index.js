@@ -174,7 +174,7 @@ export default function Signup() {
               flexDirection="column"
             >
               <Typography display="block" variant="body1" align="center">
-                email: humans@meeu.app
+                email: humans@meeu.app 
               </Typography>
 
               <Button
